@@ -1,0 +1,33 @@
+{
+  "id": "settings",
+  "json": {
+    "Main": {
+      "site_title": {
+        "type": "Text",
+        "config": {
+          "label": "Site title",
+          "placeholder": ""
+        }
+      },
+      "meta_description": {
+        "type": "Text",
+        "config": {
+          "label": "Meta description",
+          "placeholder": ""
+        }
+      },
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  },
+  "label": "Settings",
+  "repeatable": false,
+  "status": true,
+  "format": "custom"
+}
