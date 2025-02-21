@@ -1,5 +1,9 @@
 {
   "id": "settings",
+  "label": "settings",
+  "repeatable": false,
+  "status": true,
+  "format": "custom",
   "json": {
     "Main": {
       "site_title": {
@@ -23,11 +27,34 @@
           "constraint": {},
           "thumbnails": []
         }
+      },
+      "navigation": {
+        "type": "Group",
+        "config": {
+          "label": "navigation",
+          "repeat": true,
+          "fields": {
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "link",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": true,
+                "repeat": false
+              }
+            },
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "label",
+                "placeholder": ""
+              }
+            }
+          }
+        }
       }
     }
-  },
-  "label": "Settings",
-  "repeatable": false,
-  "status": true,
-  "format": "custom"
+  }
 }

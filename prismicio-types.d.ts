@@ -5,11 +5,36 @@ import type * as prismic from "@prismicio/client";
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 /**
- * Content for Settings documents
+ * Item in *settings → navigation*
+ */
+export interface SettingsDocumentDataNavigationItem {
+  /**
+   * link field in *settings → navigation*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * label field in *settings → navigation*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation[].label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+}
+
+/**
+ * Content for settings documents
  */
 interface SettingsDocumentData {
   /**
-   * Site title field in *Settings*
+   * Site title field in *settings*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -20,7 +45,7 @@ interface SettingsDocumentData {
   site_title: prismic.KeyTextField;
 
   /**
-   * Meta description field in *Settings*
+   * Meta description field in *settings*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -31,7 +56,7 @@ interface SettingsDocumentData {
   meta_description: prismic.KeyTextField;
 
   /**
-   * image field in *Settings*
+   * image field in *settings*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
@@ -40,10 +65,21 @@ interface SettingsDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   image: prismic.ImageField<never>;
+
+  /**
+   * navigation field in *settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  navigation: prismic.GroupField<Simplify<SettingsDocumentDataNavigationItem>>;
 }
 
 /**
- * Settings document from Prismic
+ * settings document from Prismic
  *
  * - **API ID**: `settings`
  * - **Repeatable**: `false`
@@ -80,6 +116,11 @@ declare module "@prismicio/client" {
   }
 
   namespace Content {
-    export type { SettingsDocument, SettingsDocumentData, AllDocumentTypes };
+    export type {
+      SettingsDocument,
+      SettingsDocumentData,
+      SettingsDocumentDataNavigationItem,
+      AllDocumentTypes,
+    };
   }
 }
