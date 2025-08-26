@@ -8,8 +8,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-red-400">{children}
       <PrismicPreview repositoryName={repositoryName} />
+      </body>
     </html>
   );
 }
