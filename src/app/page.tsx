@@ -6,13 +6,19 @@ import { SliceZone } from "@prismicio/react";
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 
+interface Slice {
+  slice_type: string;
+  primary: Record<string, unknown>;
+  items?: Record<string, unknown>[];
+}
+
 export default async function Home() {
   const client = createClient();
   const home = await client.getByUID("page", "home");
 
   // Separate footer from other slices
-  const footerSlices = home.data.slices.filter((slice: any) => slice.slice_type === 'footer');
-  const otherSlices = home.data.slices.filter((slice: any) => slice.slice_type !== 'footer');
+  const footerSlices = home.data.slices.filter((slice: Slice) => slice.slice_type === 'footer');
+  const otherSlices = home.data.slices.filter((slice: Slice) => slice.slice_type !== 'footer');
 
   return (
     <div className="flex flex-col h-full">
