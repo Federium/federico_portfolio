@@ -1,6 +1,7 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 
+import "./global.css";
 
 import { Montserrat } from 'next/font/google'
 
@@ -13,8 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={montserrat.className}>
-      <body>
-      <main>{children}</main>
+      <body className="h-screen flex flex-col">
+      <main className="flex-1">{children}</main>
       <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>

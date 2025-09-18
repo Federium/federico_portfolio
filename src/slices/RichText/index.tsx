@@ -5,12 +5,12 @@ import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 
 
 
-type RichTextProps = SliceComponentProps<Content.RichTextSlice>;
+type RichTextProps = SliceComponentProps<Content.HeaderSlice>;
 
 const RichText: FC<RichTextProps> = ({ slice }) => {
   return (
     <section>
-      <PrismicRichText field={slice.primary?.content}  />
+      <PrismicRichText field={slice.primary?.RichText}  />
     </section>
   );
 };

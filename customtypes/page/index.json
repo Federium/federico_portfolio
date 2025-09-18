@@ -27,7 +27,10 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "rich_text": {
+            "footer": {
+              "type": "SharedSlice"
+            },
+            "header": {
               "type": "SharedSlice"
             }
           }

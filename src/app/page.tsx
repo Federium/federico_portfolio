@@ -10,8 +10,18 @@ export default async function Home() {
   const client = createClient();
   const home = await client.getByUID("page", "home");
 
-  // <SliceZone> renders the page's slices.
-  return <SliceZone slices={home.data.slices} components={components} />;
+  // Separate footer from other slices
+  const footerSlices = home.data.slices.filter((slice: any) => slice.slice_type === 'footer');
+  const otherSlices = home.data.slices.filter((slice: any) => slice.slice_type !== 'footer');
+
+  return (
+    <div className="flex flex-col h-full">
+      <div className="flex-1">
+        <SliceZone slices={otherSlices} components={components} />
+      </div>
+      <SliceZone slices={footerSlices} components={components} />
+    </div>
+  );
 }
 
 export async function generateMetadata(): Promise<Metadata> {

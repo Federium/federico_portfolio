@@ -4,5 +4,5 @@ import dynamic from "next/dynamic";
 
 export const components = {
   footer: dynamic(() => import("./Footer")),
-  rich_text: dynamic(() => import("./BaseText")),
+  header: dynamic(() => import("./Header")),
 };

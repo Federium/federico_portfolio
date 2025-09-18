@@ -5,13 +5,14 @@ import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 
 import "../global.css";
 
-type FooterProps = SliceComponentProps<Content.FooterSlice>;
+type HeaderProps = SliceComponentProps<Content.HeaderSlice>;
 
-const Footer: FC<FooterProps> = ({ slice }) => {
+const Header: FC<HeaderProps> = ({ slice }) => {
   return (
-    <footer className="">
-      <PrismicRichText field={slice.primary?.FooterText}
-      components={{
+    <section>
+      <PrismicRichText
+        field={slice.primary.RichText}
+        components={{
           heading1: ({ children }) => (
             <h1 className="text-4xl font-bold tracking-wide text-blue-600">{children}</h1>
           ),
@@ -21,10 +22,10 @@ const Footer: FC<FooterProps> = ({ slice }) => {
           paragraph: ({ children }) => (
             <p className="text-xs text-blue-600">{children}</p>
           ),
-        }}  
-        />
-    </footer>
+        }}
+      />
+    </section>
   );
 };
 
-export default Footer;
+export default Header;

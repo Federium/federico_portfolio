@@ -3,13 +3,13 @@
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
 		"primary": {
-			"FooterText": {
+			"RichText": {
 				"__TYPE__": "StructuredTextContent",
 				"value": [
 					{
 						"type": "paragraph",
 						"content": {
-							"text": "Nulla qui consectetur commodo non Lorem. Consequat magna dolor labore veniam adipisicing duis. Consequat consequat mollit voluptate minim quis ullamco laboris in do aliquip anim labore cillum."
+							"text": "Magna dolor cillum consectetur irure do occaecat laborum ex nulla exercitation ullamco consectetur."
 						}
 					}
 				]

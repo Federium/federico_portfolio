@@ -69,7 +69,7 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type PageDocumentDataSlicesSlice = RichTextSlice;
+type PageDocumentDataSlicesSlice = FooterSlice | HeaderSlice;
 
 /**
  * Content for Page documents
@@ -144,6 +144,21 @@ export type PageDocument<Lang extends string = string> =
 export type AllDocumentTypes = PageDocument;
 
 /**
+ * Primary content in *Footer → Default → Primary*
+ */
+export interface FooterSliceDefaultPrimary {
+  /**
+   * FooterText field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.FooterText
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  FooterText: prismic.RichTextField;
+}
+
+/**
  * Default variation for Footer Slice
  *
  * - **API ID**: `default`
@@ -152,7 +167,7 @@ export type AllDocumentTypes = PageDocument;
  */
 export type FooterSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<FooterSliceDefaultPrimary>,
   never
 >;
 
@@ -171,59 +186,46 @@ type FooterSliceVariation = FooterSliceDefault;
 export type FooterSlice = prismic.SharedSlice<"footer", FooterSliceVariation>;
 
 /**
- * Primary content in *BaseText → Default → Primary*
+ * Primary content in *Header → Default → Primary*
  */
-export interface RichTextSliceDefaultPrimary {
+export interface HeaderSliceDefaultPrimary {
   /**
-   * Content field in *BaseText → Default → Primary*
+   * RichText field in *Header → Default → Primary*
    *
    * - **Field Type**: Rich Text
-   * - **Placeholder**: Lorem ipsum...
-   * - **API ID Path**: rich_text.default.primary.content
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.default.primary.RichText
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  content: prismic.RichTextField;
-
-  /**
-   * text field in *BaseText → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: lorem ipsum....
-   * - **API ID Path**: rich_text.default.primary.text
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  text: prismic.RichTextField;
+  RichText: prismic.RichTextField;
 }
 
 /**
- * Default variation for BaseText Slice
+ * Default variation for Header Slice
  *
  * - **API ID**: `default`
- * - **Description**: RichText
+ * - **Description**: Default
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type RichTextSliceDefault = prismic.SharedSliceVariation<
+export type HeaderSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Simplify<RichTextSliceDefaultPrimary>,
+  Simplify<HeaderSliceDefaultPrimary>,
   never
 >;
 
 /**
- * Slice variation for *BaseText*
+ * Slice variation for *Header*
  */
-type RichTextSliceVariation = RichTextSliceDefault;
+type HeaderSliceVariation = HeaderSliceDefault;
 
 /**
- * BaseText Shared Slice
+ * Header Shared Slice
  *
- * - **API ID**: `rich_text`
- * - **Description**: RichText
+ * - **API ID**: `header`
+ * - **Description**: Header
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type RichTextSlice = prismic.SharedSlice<
-  "rich_text",
-  RichTextSliceVariation
->;
+export type HeaderSlice = prismic.SharedSlice<"header", HeaderSliceVariation>;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -251,12 +253,13 @@ declare module "@prismicio/client" {
       PageDocumentDataSlicesSlice,
       AllDocumentTypes,
       FooterSlice,
+      FooterSliceDefaultPrimary,
       FooterSliceVariation,
       FooterSliceDefault,
-      RichTextSlice,
-      RichTextSliceDefaultPrimary,
-      RichTextSliceVariation,
-      RichTextSliceDefault,
+      HeaderSlice,
+      HeaderSliceDefaultPrimary,
+      HeaderSliceVariation,
+      HeaderSliceDefault,
     };
   }
 }
