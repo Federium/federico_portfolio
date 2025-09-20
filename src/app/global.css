@@ -1,6 +1,3 @@
-@import "tailwindcss";
-
-/* poi le tue personalizzazioni */
-@layer base { /* base personalizzati */ }
-@layer components { /* componenti */ }
-@layer utilities { /* utilities */ }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

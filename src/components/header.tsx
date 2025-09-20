@@ -30,7 +30,7 @@ const Header: FC = async () => {
             hyperlink: ({ node, children }) => (
               <PrismicNextLink 
                 field={node.data}
-                className="underline text-blue-600 hover:text-red-500 transition-colors duration-300"
+                className="underline text-blue-600 hover:text-red-600"
               >
                 {children}
               </PrismicNextLink>

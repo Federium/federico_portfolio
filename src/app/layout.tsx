@@ -40,8 +40,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={jetbrainsMono.className}>
-      <body className="h-screen flex flex-col p-8">
+    <html lang="en" className={`${jetbrainsMono.variable} font-mono`}>
+      <body className="min-h-screen flex flex-col p-8 bg-white">
         <Header />
         <main className="flex-1">
           {children}
