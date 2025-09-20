@@ -2,7 +2,19 @@
 	{
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
-		"primary": {},
+		"primary": {
+			"ProjectsList": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Exercitation ex incididunt mollit eu duis eiusmod dolore duis cillum et ea elit consectetur amet. Ad proident labore adipisicing aliqua laborum veniam qui labore fugiat nulla."
+						}
+					}
+				]
+			}
+		},
 		"items": []
 	}
 ]

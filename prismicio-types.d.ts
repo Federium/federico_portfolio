@@ -69,7 +69,10 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type PageDocumentDataSlicesSlice = FooterSlice | HeaderSlice;
+type PageDocumentDataSlicesSlice =
+  | ProjectslistSlice
+  | FooterSlice
+  | HeaderSlice;
 
 /**
  * Content for Page documents
@@ -141,72 +144,7 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-type ProjectsDocumentDataSlicesSlice = FooterSlice | ProjectslistSlice;
-
-/**
- * Content for Projects documents
- */
-interface ProjectsDocumentData {
-  /**
-   * Slice Zone field in *Projects*
-   *
-   * - **Field Type**: Slice Zone
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.slices[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/slices
-   */
-  slices: prismic.SliceZone<ProjectsDocumentDataSlicesSlice> /**
-   * Meta Title field in *Projects*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A title of the page used for social media and search engines
-   * - **API ID Path**: projects.meta_title
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */;
-  meta_title: prismic.KeyTextField;
-
-  /**
-   * Meta Description field in *Projects*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A brief summary of the page
-   * - **API ID Path**: projects.meta_description
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  meta_description: prismic.KeyTextField;
-
-  /**
-   * Meta Image field in *Projects*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.meta_image
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  meta_image: prismic.ImageField<never>;
-}
-
-/**
- * Projects document from Prismic
- *
- * - **API ID**: `projects`
- * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/content-modeling
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type ProjectsDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<
-    Simplify<ProjectsDocumentData>,
-    "projects",
-    Lang
-  >;
-
-export type AllDocumentTypes = PageDocument | ProjectsDocument;
+export type AllDocumentTypes = PageDocument;
 
 /**
  * Primary content in *Footer → Default → Primary*
@@ -293,6 +231,21 @@ type HeaderSliceVariation = HeaderSliceDefault;
 export type HeaderSlice = prismic.SharedSlice<"header", HeaderSliceVariation>;
 
 /**
+ * Primary content in *Projectslist → Default → Primary*
+ */
+export interface ProjectslistSliceDefaultPrimary {
+  /**
+   * ProjectsList field in *Projectslist → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: projectslist.default.primary.ProjectsList
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  ProjectsList: prismic.RichTextField;
+}
+
+/**
  * Default variation for Projectslist Slice
  *
  * - **API ID**: `default`
@@ -301,7 +254,7 @@ export type HeaderSlice = prismic.SharedSlice<"header", HeaderSliceVariation>;
  */
 export type ProjectslistSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<ProjectslistSliceDefaultPrimary>,
   never
 >;
 
@@ -346,9 +299,6 @@ declare module "@prismicio/client" {
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
-      ProjectsDocument,
-      ProjectsDocumentData,
-      ProjectsDocumentDataSlicesSlice,
       AllDocumentTypes,
       FooterSlice,
       FooterSliceDefaultPrimary,
@@ -359,6 +309,7 @@ declare module "@prismicio/client" {
       HeaderSliceVariation,
       HeaderSliceDefault,
       ProjectslistSlice,
+      ProjectslistSliceDefaultPrimary,
       ProjectslistSliceVariation,
       ProjectslistSliceDefault,
     };

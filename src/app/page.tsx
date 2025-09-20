@@ -5,6 +5,7 @@ import { SliceZone } from "@prismicio/react";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
+import Header from "@/components/header";
 
 interface Slice {
   slice_type: string;
@@ -16,13 +17,16 @@ export default async function Home() {
   const client = createClient();
   const home = await client.getByUID("page", "home");
 
-  // Filter out header and footer slices since they're now handled by layout components
+  // Filter out both header and footer slices since header is now shown manually
   const contentSlices = home.data.slices.filter((slice: Slice) => 
     slice.slice_type !== 'footer' && slice.slice_type !== 'header'
   );
 
   return (
-    <SliceZone slices={contentSlices} components={components} />
+    <>
+      <Header />
+      <SliceZone slices={contentSlices} components={components} />
+    </>
   );
 }
 

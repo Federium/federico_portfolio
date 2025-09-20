@@ -2,7 +2,6 @@ import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 import localFont from 'next/font/local'
 
-import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 import "./global.css";
@@ -42,7 +41,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jetbrainsMono.variable} font-mono`}>
       <body className="min-h-screen flex flex-col p-8 bg-white">
-        <Header />
         <main className="flex-1">
           {children}
         </main>
