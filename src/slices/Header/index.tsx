@@ -1,9 +1,11 @@
+"use client";
+
 import { FC } from "react";
 import { Content } from "@prismicio/client";
-/* import { PrismicNextLink } from "@prismicio/next"; */
+import { PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 
-import "../global.css";
+
 
 type HeaderProps = SliceComponentProps<Content.HeaderSlice>;
 
@@ -14,7 +16,32 @@ const Header: FC<HeaderProps> = ({ slice }) => {
         field={slice.primary.RichText}
         components={{
           heading1: ({ children }) => (
-            <h1 className="text-4xl font-bold tracking-wide text-blue-600">{children}</h1>
+            <h1 
+              className="font-bold text-blue-600"
+              style={{
+                fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+                lineHeight: '1.2'
+              }}
+            >
+              {children}
+            </h1>
+          ),
+          hyperlink: ({ node, children }) => (
+            <PrismicNextLink 
+              field={node.data}
+              style={{
+                textDecoration: 'underline',
+                color: 'inherit',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'red';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'inherit';
+              }}
+            >
+              {children}
+            </PrismicNextLink>
           )
         }}
       />
