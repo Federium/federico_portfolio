@@ -16,17 +16,13 @@ export default async function Home() {
   const client = createClient();
   const home = await client.getByUID("page", "home");
 
-  // Separate footer from other slices
-  const footerSlices = home.data.slices.filter((slice: Slice) => slice.slice_type === 'footer');
-  const otherSlices = home.data.slices.filter((slice: Slice) => slice.slice_type !== 'footer');
+  // Filter out header and footer slices since they're now handled by layout components
+  const contentSlices = home.data.slices.filter((slice: Slice) => 
+    slice.slice_type !== 'footer' && slice.slice_type !== 'header'
+  );
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1">
-        <SliceZone slices={otherSlices} components={components} />
-      </div>
-      <SliceZone slices={footerSlices} components={components} />
-    </div>
+    <SliceZone slices={contentSlices} components={components} />
   );
 }
 

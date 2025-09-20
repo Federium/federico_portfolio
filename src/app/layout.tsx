@@ -2,6 +2,9 @@ import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 import localFont from 'next/font/local'
 
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+
 import "./global.css";
 
 const jetbrainsMono = localFont({
@@ -30,6 +33,7 @@ const jetbrainsMono = localFont({
   variable: '--font-jetbrains-mono'
 })
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,12 +41,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={jetbrainsMono.className}>
-      <body 
-        className="h-screen flex flex-col"
-        style={{ padding: '2rem' }}
-      >
-      <main className="flex-1">{children}</main>
-      <PrismicPreview repositoryName={repositoryName} />
+      <body className="h-screen flex flex-col p-8">
+        <Header />
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer />
+        <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>
   );

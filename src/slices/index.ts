@@ -3,6 +3,5 @@
 import dynamic from "next/dynamic";
 
 export const components = {
-  footer: dynamic(() => import("./Footer")),
-  header: dynamic(() => import("./Header")),
+  // Header and Footer are now handled as layout components, not slices
 };
