@@ -40,6 +40,7 @@ const Header: FC = async () => {
       </header>
     );
   } catch (error) {
+    console.error('Error loading header:', error);
     return null;
   }
 };

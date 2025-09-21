@@ -1,13 +1,14 @@
 import { FC } from "react";
 import { PrismicRichText } from "@prismicio/react";
 import { createClient } from "@/prismicio";
+import { FooterSlice } from "../../prismicio-types";
 
 const Footer: FC = async () => {
   const client = createClient();
   
   try {
     const home = await client.getByUID("page", "home");
-    const footerSlice: any = home.data.slices.find((slice: any) => slice.slice_type === 'footer');
+    const footerSlice = home.data.slices.find((slice) => slice.slice_type === 'footer') as FooterSlice | undefined;
     
     if (!footerSlice) {
       return null;
@@ -28,6 +29,7 @@ const Footer: FC = async () => {
       </footer>
     );
   } catch (error) {
+    console.error('Error loading footer:', error);
     return null;
   }
 };
