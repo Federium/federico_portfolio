@@ -70,6 +70,7 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 type PageDocumentDataSlicesSlice =
+  | ProjectPageSlice
   | ProjectslistSlice
   | FooterSlice
   | HeaderSlice;
@@ -231,6 +232,61 @@ type HeaderSliceVariation = HeaderSliceDefault;
 export type HeaderSlice = prismic.SharedSlice<"header", HeaderSliceVariation>;
 
 /**
+ * Primary content in *ProjectPage → Default → Primary*
+ */
+export interface ProjectPageSliceDefaultPrimary {
+  /**
+   * ProjectText field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.ProjectText
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  ProjectText: prismic.RichTextField;
+
+  /**
+   * ProjectImg field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.ProjectImg
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  ProjectImg: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for ProjectPage Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProjectPageSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ProjectPageSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ProjectPage*
+ */
+type ProjectPageSliceVariation = ProjectPageSliceDefault;
+
+/**
+ * ProjectPage Shared Slice
+ *
+ * - **API ID**: `project_page`
+ * - **Description**: ProjectPage
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProjectPageSlice = prismic.SharedSlice<
+  "project_page",
+  ProjectPageSliceVariation
+>;
+
+/**
  * Primary content in *Projectslist → Default → Primary*
  */
 export interface ProjectslistSliceDefaultPrimary {
@@ -308,6 +364,10 @@ declare module "@prismicio/client" {
       HeaderSliceDefaultPrimary,
       HeaderSliceVariation,
       HeaderSliceDefault,
+      ProjectPageSlice,
+      ProjectPageSliceDefaultPrimary,
+      ProjectPageSliceVariation,
+      ProjectPageSliceDefault,
       ProjectslistSlice,
       ProjectslistSliceDefaultPrimary,
       ProjectslistSliceVariation,

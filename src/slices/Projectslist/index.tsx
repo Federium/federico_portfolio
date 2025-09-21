@@ -16,40 +16,14 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="py-8"
     >
       <PrismicRichText
         field={slice.primary.ProjectsList}
         components={{
           heading1: ({ children }) => (
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-blue-600 mb-6 leading-tight">
+            <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-600 leading-loose">
               {children}
             </h1>
-          ),
-          heading2: ({ children }) => (
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-blue-600 mb-4 leading-tight">
-              {children}
-            </h2>
-          ),
-          heading3: ({ children }) => (
-            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-blue-600 mb-4 leading-tight">
-              {children}
-            </h3>
-          ),
-          heading4: ({ children }) => (
-            <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-600 mb-3 leading-tight">
-              {children}
-            </h4>
-          ),
-          heading5: ({ children }) => (
-            <h5 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-blue-600 mb-3 leading-tight">
-              {children}
-            </h5>
-          ),
-          heading6: ({ children }) => (
-            <h6 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-blue-600 mb-2 leading-tight">
-              {children}
-            </h6>
           ),
           paragraph: ({ children }) => (
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-800 mb-4 leading-relaxed">
@@ -74,10 +48,25 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
           hyperlink: ({ node, children }) => (
             <PrismicNextLink 
               field={node.data}
-              className="underline text-blue-600 hover:text-red-600 transition-colors duration-300"
+              className="underline text-blue-600 hover:text-red-600"
             >
               {children}
             </PrismicNextLink>
+          ),
+          list: ({ children }) => (
+            <ul className="list-disc list-inside space-y-4 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600">
+              {children}
+            </ul>
+          ),
+          oList: ({ children }) => (
+            <ol className="list-decimal list-inside mb-4 space-y-4 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600">
+              {children}
+            </ol>
+          ),
+          listItem: ({ children }) => (
+            <li className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 py-4">
+              {children}
+            </li>
           ),
         }}
       />

@@ -23,7 +23,7 @@ const Header: FC = async () => {
           field={headerSlice.primary.RichText}
           components={{
             heading1: ({ children }) => (
-              <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-600 leading-tight">
+              <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 leading-normal">
                 {children}
               </h1>
             ),
