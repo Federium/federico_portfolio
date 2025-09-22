@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Content } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
+import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
+import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
 
 /**
  * Props for `ProjectPage`.
@@ -16,36 +17,31 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      Placeholder component for project_page (variation: {slice.variation})
-      slices.
-      <br />
-      <strong>You can edit this slice directly in your code editor.</strong>
-      {/**
-       * 💡 Use Prismic MCP with your code editor
-       *
-       * Get AI-powered help to build your slice components — based on your actual model.
-       *
-       * ▶️ Setup:
-       * 1. Add a new MCP Server in your code editor:
-       *
-       * {
-       *   "mcpServers": {
-       *     "Prismic MCP": {
-       *       "command": "npx",
-       *       "args": ["-y", "@prismicio/mcp-server@latest"]
-       *     }
-       *   }
-       * }
-       *
-       * 2. Select a model optimized for coding (e.g. Claude 3.7 Sonnet or similar)
-       *
-       * ✅ Then open your slice file and ask your code editor:
-       *    "Code this slice"
-       *
-       * Your code editor reads your slice model and helps you code faster ⚡
-       * 🎙️ Give your feedback: https://community.prismic.io/t/help-us-shape-the-future-of-slice-creation/19505
-       * 📚 Documentation: https://prismic.io/docs/ai#code-with-prismics-mcp-server
-       */}
+      {/* Project Text */}
+      <PrismicRichText
+        field={slice.primary.ProjectText}
+        components={{
+          paragraph: ({ children }) => (
+            <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 mb-20 leading-relaxed break-words overflow-wrap-anywhere">
+              {children}
+            </p>
+          )
+        }}
+      />
+      
+      {/* Spacer to push image below viewport */}
+      <div className="h-screen"></div>
+      
+      {/* Project Image */}
+      {slice.primary.ProjectImg && slice.primary.ProjectImg.url && (
+        <div className="mt-8 mb-8">
+          <PrismicNextImage
+            field={slice.primary.ProjectImg}
+            className="w-full h-auto rounded-lg shadow-lg object-cover max-w-full"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+          />
+        </div>
+      )}
     </section>
   );
 };
