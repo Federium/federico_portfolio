@@ -54,17 +54,17 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
             </PrismicNextLink>
           ),
           list: ({ children }) => (
-            <ul className="list-disc list-inside space-y-4 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600">
+            <ul className="list-none list-inside space-y-4 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 break-words overflow-wrap-anywhere">
               {children}
             </ul>
           ),
           oList: ({ children }) => (
-            <ol className="list-decimal list-inside mb-4 space-y-4 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600">
+            <ol className="list-none list-inside mb-4 space-y-4 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 break-words overflow-wrap-anywhere">
               {children}
             </ol>
           ),
           listItem: ({ children }) => (
-            <li className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 py-4">
+            <li className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 py-4 break-words overflow-wrap-anywhere whitespace-normal">
               {children}
             </li>
           ),
