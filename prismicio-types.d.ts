@@ -254,6 +254,66 @@ export interface ProjectPageSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   ProjectImg: prismic.ImageField<never>;
+
+  /**
+   * ProjectImg2 field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.ProjectImg2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  ProjectImg2: prismic.ImageField<never>;
+
+  /**
+   * ProjectImg3 field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.ProjectImg3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  ProjectImg3: prismic.ImageField<never>;
+
+  /**
+   * ProjectImg4 field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.ProjectImg4
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  ProjectImg4: prismic.ImageField<never>;
+
+  /**
+   * ProjectImg5 field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.ProjectImg5
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  ProjectImg5: prismic.ImageField<never>;
+
+  /**
+   * video field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/embed
+   */
+  video: prismic.EmbedField;
+
+  /**
+   * ReturnButton field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.ReturnButton
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  ReturnButton: prismic.RichTextField;
 }
 
 /**

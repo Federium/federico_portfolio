@@ -28,6 +28,54 @@
             "constraint": {},
             "thumbnails": []
           }
+        },
+        "ProjectImg2": {
+          "type": "Image",
+          "config": {
+            "label": "",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "ProjectImg3": {
+          "type": "Image",
+          "config": {
+            "label": "",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "ProjectImg4": {
+          "type": "Image",
+          "config": {
+            "label": "",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "ProjectImg5": {
+          "type": "Image",
+          "config": {
+            "label": "",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "video": {
+          "type": "Embed",
+          "config": {
+            "label": "",
+            "placeholder": ""
+          }
+        },
+        "ReturnButton": {
+          "type": "StructuredText",
+          "config": {
+            "label": "",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
         }
       },
       "items": {}
