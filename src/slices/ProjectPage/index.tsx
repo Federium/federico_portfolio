@@ -14,6 +14,12 @@ export type ProjectPageProps = SliceComponentProps<Content.ProjectPageSlice>;
  * Component for "ProjectPage" Slices.
  */
 const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
+  // Controllo di sicurezza per slice.primary
+  if (!slice || !slice.primary) {
+    console.warn('ProjectPage: slice or slice.primary is missing');
+    return null;
+  }
+
   // Raggruppa tutte le immagini in un array
   const projectImages = [
     slice.primary.ProjectImg,
@@ -28,35 +34,46 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
 
   // Funzione per convertire URL YouTube in formato embed
   const getYouTubeEmbedUrl = (url: string) => {
-    if (!url) return url;
-    
-    // Se è già un URL embed, restituiscilo così com'è
-    if (url.includes('youtube.com/embed/')) {
-      return url;
+    try {
+      if (!url || typeof url !== 'string') return '';
+      
+      // Se è già un URL embed, restituiscilo così com'è
+      if (url.includes('youtube.com/embed/')) {
+        return url;
+      }
+      
+      // Estrai l'ID del video da diversi formati di URL YouTube
+      let videoId = '';
+      
+      // URL del tipo: https://www.youtube.com/watch?v=VIDEO_ID
+      const watchMatch = url.match(/[?&]v=([^&]+)/);
+      if (watchMatch && watchMatch[1]) {
+        videoId = watchMatch[1];
+      }
+      
+      // URL del tipo: https://youtu.be/VIDEO_ID
+      if (!videoId) {
+        const shortMatch = url.match(/youtu\.be\/([^?&]+)/);
+        if (shortMatch && shortMatch[1]) {
+          videoId = shortMatch[1];
+        }
+      }
+      
+      // Se abbiamo trovato un ID video, crea l'URL embed
+      if (videoId) {
+        // Pulisci l'ID video da caratteri non validi
+        const cleanVideoId = videoId.replace(/[^a-zA-Z0-9_-]/g, '');
+        if (cleanVideoId.length > 0) {
+          return `https://www.youtube.com/embed/${cleanVideoId}`;
+        }
+      }
+      
+      // Se non riusciamo a parsare l'URL YouTube, ritorna vuoto per evitare errori
+      return '';
+    } catch (error) {
+      console.warn('Error parsing YouTube URL:', url, error);
+      return '';
     }
-    
-    // Estrai l'ID del video da diversi formati di URL YouTube
-    let videoId = '';
-    
-    // URL del tipo: https://www.youtube.com/watch?v=VIDEO_ID
-    const watchMatch = url.match(/[?&]v=([^&]+)/);
-    if (watchMatch) {
-      videoId = watchMatch[1];
-    }
-    
-    // URL del tipo: https://youtu.be/VIDEO_ID
-    const shortMatch = url.match(/youtu\.be\/([^?]+)/);
-    if (shortMatch) {
-      videoId = shortMatch[1];
-    }
-    
-    // Se abbiamo trovato un ID video, crea l'URL embed
-    if (videoId) {
-      return `https://www.youtube.com/embed/${videoId}`;
-    }
-    
-    // Altrimenti restituisci l'URL originale
-    return url;
   };
 
   const scrollToImage = () => {
@@ -122,19 +139,24 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
 
         {/* Project Video */}
         {slice.primary.video && slice.primary.video.embed_url && (
-          <div className={imageContainerStyle}>
-            <div className="relative w-full rounded-lg overflow-hidden shadow-lg" style={{ aspectRatio: '16/9' }}>
-              <iframe
-                src={getYouTubeEmbedUrl(slice.primary.video.embed_url)}
-                className="absolute inset-0 w-full h-full border-0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-                title="Project Video"
-                referrerPolicy="strict-origin-when-cross-origin"
-              />
-            </div>
-          </div>
+          (() => {
+            const embedUrl = getYouTubeEmbedUrl(slice.primary.video.embed_url);
+            return embedUrl ? (
+              <div className={imageContainerStyle}>
+                <div className="relative w-full rounded-lg overflow-hidden shadow-lg" style={{ aspectRatio: '16/9' }}>
+                  <iframe
+                    src={embedUrl}
+                    className="absolute inset-0 w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                    title="Project Video"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                  />
+                </div>
+              </div>
+            ) : null;
+          })()
         )}
 
         {/* Fallback for video HTML */}
