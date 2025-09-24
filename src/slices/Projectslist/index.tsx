@@ -48,7 +48,7 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
           hyperlink: ({ node, children }) => (
             <PrismicNextLink 
               field={node.data}
-              className="underline text-blue-600 hover:text-red-600"
+              className="underline underline-offset-2 text-blue-600 hover:text-red-600"
             >
               {children}
             </PrismicNextLink>

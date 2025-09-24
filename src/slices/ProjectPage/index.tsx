@@ -71,7 +71,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
 
   // Stile comune per le immagini
   const imageContainerStyle = "mt-8 mb-8";
-  const imageStyle = "w-full h-auto rounded-lg shadow-lg object-cover max-w-full";
+  const imageStyle = "w-full h-auto object-cover max-w-full";
   const imageSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw";
 
   return (
@@ -123,7 +123,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
         {/* Project Video */}
         {slice.primary.video && slice.primary.video.embed_url && (
           <div className={imageContainerStyle}>
-            <div className="relative w-full rounded-lg overflow-hidden shadow-lg" style={{ aspectRatio: '16/9' }}>
+            <div className="relative w-full  overflow-hidden " style={{ aspectRatio: '16/9' }}>
               <iframe
                 src={getYouTubeEmbedUrl(slice.primary.video.embed_url)}
                 className="absolute inset-0 w-full h-full border-0"
@@ -141,7 +141,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
         {slice.primary.video && slice.primary.video.html && !slice.primary.video.embed_url && (
           <div className={imageContainerStyle}>
             <div 
-              className="relative w-full rounded-lg overflow-hidden shadow-lg video-container"
+              className="relative w-full overflow-hidden video-container"
               style={{ aspectRatio: '16/9' }}
               dangerouslySetInnerHTML={{ __html: slice.primary.video.html }}
             />
