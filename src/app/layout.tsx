@@ -3,7 +3,6 @@ import { repositoryName } from "@/prismicio";
 import localFont from 'next/font/local'
 
 import Footer from "@/components/footer";
-import ErrorBoundary from "@/components/error-boundary";
 
 import "./global.css";
 
@@ -42,12 +41,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jetbrainsMono.variable} font-mono`}>
       <body className="min-h-screen flex flex-col p-8 bg-white">
-        <ErrorBoundary>
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </ErrorBoundary>
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer />
         <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>
