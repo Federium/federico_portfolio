@@ -1,5 +1,6 @@
 [build]
   publish = ".next"
+  # Usa lo script personalizzato che gestisce TypeScript e Tailwind
   command = "./build-netlify.sh"
 
 [build.environment]
@@ -13,6 +14,8 @@
   TAILWIND_MODE = "build"
   # PostCSS processing
   POSTCSS_ENV = "production"
+  # Disabilita audit per velocizzare il build
+  NPM_FLAGS = "--prefer-offline --no-audit --progress=false"
 
 # Rewrite rules per Next.js
 [[redirects]]
