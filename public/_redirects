@@ -1,0 +1,5 @@
+# Redirect per admin Prismic
+/admin https://federicomorsia.prismic.io/ 302!
+
+# SPA fallback per Next.js App Router - ATTENZIONE: Questa regola deve essere l'ultima
+/*    /index.html   200
