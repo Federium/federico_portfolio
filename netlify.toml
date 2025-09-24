@@ -1,13 +1,43 @@
 [build]
   publish = ".next"
-  command = "npm ci && npm run build"
+  # Usa lo script personalizzato che gestisce TypeScript e Tailwind
+  command = "./build-netlify.sh"
 
 [build.environment]
   # Aggiorna Node.js alla versione 20 per TypeScript
   NODE_VERSION = "20"
   # Variabili d'ambiente per il build
+  PRISMIC_REPOSITORY_NAME = "federico-portfolio"
+  # Importante per Tailwind CSS
   NODE_ENV = "production"
+  # Forza la generazione dei CSS
+  TAILWIND_MODE = "build"
+  # PostCSS processing
+  POSTCSS_ENV = "production"
+  # Disabilita audit per velocizzare il build
+  NPM_FLAGS = "--prefer-offline --no-audit --progress=false"
 
-# Configurazione funzioni Netlify
+# Rewrite rules per Next.js
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin"]}
+
+# Funzione webhook per Prismic
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization, x-prismic-signature"
+
+# Build hooks e webhook settings
 [functions]
   directory = "netlify/functions"
+  node_bundler = "nft"
+
+# Environment variables (da configurare nel dashboard Netlify)
+# NETLIFY_BUILD_HOOK_URL = "https://api.netlify.com/build_hooks/YOUR_BUILD_HOOK_ID"
+# PRISMIC_WEBHOOK_SECRET = "your-webhook-secret" (opzionale ma raccomandato)
+# PRISMIC_ACCESS_TOKEN = "your-prismic-access-token"
