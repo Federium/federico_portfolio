@@ -1,17 +1,11 @@
 [build]
   publish = ".next"
-  command = "./build-netlify.sh"
+  command = "npm run build"
 
 [build.environment]
   # Variabili d'ambiente per il build
   PRISMIC_REPOSITORY_NAME = "federico-portfolio"
   NODE_VERSION = "18"
-  # Importante per Tailwind CSS
-  NODE_ENV = "production"
-  # Forza la generazione dei CSS
-  TAILWIND_MODE = "build"
-  # PostCSS processing
-  POSTCSS_ENV = "production"
 
 # Rewrite rules per Next.js
 [[redirects]]
