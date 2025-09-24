@@ -1,11 +1,13 @@
 import { type Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { asText } from "@prismicio/client";
 import { SliceZone } from "@prismicio/react";
 
-import { createClient } from "@/prismicio";
+import { getHomepage } from "@/prismicio";
 import { components } from "@/slices";
 import Header from "@/components/header";
+import ISRDebug from "@/components/ISRDebug";
 
 interface Slice {
   slice_type: string;
@@ -13,9 +15,24 @@ interface Slice {
   items?: Record<string, unknown>[];
 }
 
+/**
+ * Homepage del sito con supporto ISR
+ * 
+ * Questa pagina:
+ * - Usa getHomepage() per recuperare i dati da Prismic
+ * - È configurata per ISR (Incremental Static Regeneration)
+ * - Viene automaticamente revalidata tramite webhook
+ * - Ha fallback per gestire errori di fetch
+ */
 export default async function Home() {
-  const client = createClient();
-  const home = await client.getByUID("page", "home");
+  // Fetch dei dati della homepage usando la helper function
+  const home = await getHomepage();
+
+  // Gestisci il caso in cui la homepage non esista
+  if (!home) {
+    console.error('❌ Homepage non trovata in Prismic');
+    notFound();
+  }
 
   // Filter out both header and footer slices since header is now shown manually
   const contentSlices = home.data.slices.filter((slice: Slice) => 
@@ -26,13 +43,25 @@ export default async function Home() {
     <>
       <Header />
       <SliceZone slices={contentSlices} components={components} />
+      <ISRDebug 
+        pageType="homepage" 
+        lastUpdated={home.last_publication_date}
+      />
     </>
   );
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const client = createClient();
-  const home = await client.getByUID("page", "home");
+  // Fetch dei dati per i metadati usando la helper function
+  const home = await getHomepage();
+
+  // Fallback metadata se non riusciamo a recuperare i dati
+  if (!home) {
+    return {
+      title: 'Federico Morsia Portfolio',
+      description: 'Portfolio personale di Federico Morsia',
+    };
+  }
 
   return {
     title: asText(home.data.title),
@@ -43,3 +72,20 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
+
+// ========================================
+// CONFIGURAZIONE ISR
+// ========================================
+
+/**
+ * Configurazione per l'ISR (Incremental Static Regeneration)
+ * 
+ * revalidate: 60 - La pagina viene rigenerata al massimo ogni 60 secondi
+ * se ci sono nuove richieste dopo quel periodo.
+ * 
+ * Questa configurazione combinata con il webhook di Prismic garantisce:
+ * - Aggiornamenti immediati quando il contenuto cambia (via webhook)
+ * - Fallback ogni 60 secondi per sicurezza
+ * - Performance ottimali per gli utenti
+ */
+export const revalidate = 60;
