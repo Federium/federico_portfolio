@@ -3,10 +3,9 @@
   command = "./build-netlify.sh"
 
 [build.environment]
-  # Aggiorna Node.js alla versione 20 per TypeScript
-  NODE_VERSION = "20"
   # Variabili d'ambiente per il build
   PRISMIC_REPOSITORY_NAME = "federico-portfolio"
+  NODE_VERSION = "18"
   # Importante per Tailwind CSS
   NODE_ENV = "production"
   # Forza la generazione dei CSS
