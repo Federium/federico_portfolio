@@ -71,8 +71,6 @@ These are important files that you should leave as-is:
 
 - `app/api/exit-preview/route.ts` - Do not edit or delete this file. This is the API endpoint to close a Prismic preview session.
 - `app/api/preview/route.ts` - Do not edit or delete this file. This is the API endpoint to launch a Prismic preview session.
-- `app/api/revalidate/route.ts` - This endpoint purges cached content when content is updated in Prismic.
-- `app/api/webhook/netlify/route.ts` - This endpoint handles Prismic webhooks and triggers automatic Netlify deployments.
 - `app/slice-simulator/page.tsx` - Do not edit or delete this file. This file simulates your Slice components in development.
 - `slices/` - This directory contains Slice components, which are generated programmatically by Slice Machine. To customize a Slice template, you can edit the Slice's index.tsx file. To add Slices, delete Slices, or edit Slice models, use Slice Machine (more info below).
 
@@ -83,22 +81,6 @@ Learn more about how to use [TypeScript with Prismic](https://prismic.io/docs/ty
 ### Deploy to the web
 
 To put your project online, see [Deploy your Next.js App](https://prismic.io/docs/technologies/deploy-nextjs).
-
-### Automated Deployments with Webhooks
-
-This project includes automatic deployment functionality via webhooks. When you update content in Prismic, it can automatically trigger a new deployment on Netlify.
-
-**Setup Instructions:**
-1. See `WEBHOOK_SETUP.md` for detailed configuration steps
-2. Configure your Netlify build hook URL
-3. Set up the webhook in your Prismic repository
-4. Your site will automatically redeploy when content changes
-
-**Key Features:**
-- Automatic cache revalidation
-- Secure webhook authentication
-- Detailed logging for debugging
-- Support for all Prismic content events
 
 ### Edit content models with Slice Machine
 
