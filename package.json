@@ -14,6 +14,7 @@
     "format": "prettier --write .",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "test:webhook": "node scripts/test-webhook.js",
+    "test:netlify-hook": "node scripts/test-netlify-hook.js",
     "analyze": "ANALYZE=true npm run build",
     "build:debug": "DEBUG=* npm run build"
   },
