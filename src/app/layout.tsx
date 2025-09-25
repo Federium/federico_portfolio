@@ -1,6 +1,7 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 import localFont from 'next/font/local'
+import Script from 'next/script'
 
 import Footer from "@/components/footer";
 
@@ -46,6 +47,12 @@ export default function RootLayout({
         </main>
         <Footer />
         <PrismicPreview repositoryName={repositoryName} />
+        
+        {/* Simple Analytics Script */}
+        <Script 
+          src="https://scripts.simpleanalyticscdn.com/latest.js" 
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
