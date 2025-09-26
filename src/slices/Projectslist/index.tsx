@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
+import AnimatedText from "@/components/AnimatedText";
 
 /**
  * Props for `Projectslist`.
@@ -21,9 +22,9 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
         field={slice.primary.ProjectsList}
         components={{
           heading1: ({ children }) => (
-            <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-600 leading-loose">
+            <AnimatedText className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-600 leading-loose">
               {children}
-            </h1>
+            </AnimatedText>
           ),
           paragraph: ({ children }) => (
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-800 mb-4 leading-relaxed">
@@ -64,9 +65,9 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
             </ol>
           ),
           listItem: ({ children }) => (
-            <li className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 py-4 break-words overflow-wrap-anywhere whitespace-normal">
+            <AnimatedText className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 py-4 break-words overflow-wrap-anywhere whitespace-normal">
               {children}
-            </li>
+            </AnimatedText>
           ),
         }}
       />

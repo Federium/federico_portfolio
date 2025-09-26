@@ -3,6 +3,7 @@ import { PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import { createClient } from "@/prismicio";
 import { HeaderSlice } from "../../prismicio-types";
+import AnimatedText from "./AnimatedText";
 
 const Header: FC = async () => {
   const client = createClient();
@@ -23,9 +24,9 @@ const Header: FC = async () => {
           field={headerSlice.primary.RichText}
           components={{
             heading1: ({ children }) => (
-              <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 !leading-normal font-mono">
+              <AnimatedText className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 !leading-normal font-mono">
                 {children}
-              </h1>
+              </AnimatedText>
             ),
             hyperlink: ({ node, children }) => (
               <PrismicNextLink 
