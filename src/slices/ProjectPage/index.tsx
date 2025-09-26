@@ -4,7 +4,6 @@ import { FC } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
 import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
-import AnimatedText from "@/components/AnimatedText";
 
 /**
  * Props for `ProjectPage`.
@@ -85,9 +84,9 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
         field={slice.primary.ProjectText}
         components={{
           paragraph: ({ children }) => (
-            <AnimatedText className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 mb-20 leading-relaxed break-words overflow-wrap-anywhere">
+            <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 mb-20 leading-relaxed break-words overflow-wrap-anywhere">
               {children}
-            </AnimatedText>
+            </p>
           )
         }}
       />
