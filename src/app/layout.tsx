@@ -48,11 +48,19 @@ export default function RootLayout({
         <Footer />
         <PrismicPreview repositoryName={repositoryName} />
         
-        {/* Simple Analytics Script */}
-        <Script 
-          src="https://scripts.simpleanalyticscdn.com/latest.js" 
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-KWT373PM1N"
           strategy="afterInteractive"
         />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-KWT373PM1N');
+          `}
+        </Script>
       </body>
     </html>
   );
