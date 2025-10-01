@@ -52,34 +52,34 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
           field={slice.primary.ProjectsList}
           components={{
             heading1: ({ children }) => (
-              <h1 className={`text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-600 leading-loose relative z-10 ${showPreview}`}>
+              <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-600 leading-loose relative z-10">
                 {children}
               </h1>
             ),
             paragraph: ({ children }) => (
-              <p className={`text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-800 mb-4 leading-relaxed relative z-10 ${showPreview}`}>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-800 mb-4 leading-relaxed relative z-10">
                 {children}
               </p>
             ),
             preformatted: ({ children }) => (
-              <pre className={`bg-gray-100 p-4 rounded-lg text-sm sm:text-base font-mono overflow-x-auto mb-4 relative z-10 ${showPreview}`}>
+              <pre className="bg-gray-100 p-4 rounded-lg text-sm sm:text-base font-mono overflow-x-auto mb-4 relative z-10">
                 {children}
               </pre>
             ),
             strong: ({ children }) => (
-              <strong className={`font-bold text-blue-600 relative z-10 ${showPreview}`}>
+              <strong className="font-bold text-blue-600 relative z-10">
                 {children}
               </strong>
             ),
             em: ({ children }) => (
-              <em className={`italic text-gray-700 relative z-10 ${showPreview}`}>
+              <em className="italic text-gray-700 relative z-10">
                 {children}
               </em>
             ),
             hyperlink: ({ node, children }) => (
               <PrismicNextLink 
                 field={node.data}
-                className={`underline underline-offset-2 text-blue-600 hover:text-red-600 relative z-10 ${showPreview}`}
+                className="underline underline-offset-2 text-blue-600 hover:text-red-600 relative z-10"
                 onMouseEnter={handleLinkHover}
                 onMouseLeave={handleLinkLeave}
               >
@@ -87,17 +87,17 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
               </PrismicNextLink>
             ),
             list: ({ children }) => (
-              <ul className={`list-none list-inside space-y-4 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 break-words overflow-wrap-anywhere relative z-10 ${showPreview}`}>
+              <ul className="list-none list-inside space-y-16 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 break-words overflow-wrap-anywhere relative z-10">
                 {children}
               </ul>
             ),
             oList: ({ children }) => (
-              <ol className={`list-none list-inside mb-4 space-y-4 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 break-words overflow-wrap-anywhere relative z-10 ${showPreview}`}>
+              <ol className="list-none list-inside mb-4 space-y-16 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 break-words overflow-wrap-anywhere relative z-10">
                 {children}
               </ol>
             ),
             listItem: ({ children }) => (
-              <li className={`text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 py-4 break-words overflow-wrap-anywhere whitespace-normal relative z-10 ${showPreview}`}>
+              <li className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 py-8 break-words overflow-wrap-anywhere whitespace-normal relative z-10">
                 {children}
               </li>
             ),
