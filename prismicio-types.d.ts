@@ -359,6 +359,16 @@ export interface ProjectslistSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   ProjectsList: prismic.RichTextField;
+
+  /**
+   * ImgPreview field in *Projectslist → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: projectslist.default.primary.imgpreview
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  imgpreview: prismic.ImageField<never>;
 }
 
 /**
