@@ -21,6 +21,24 @@
             "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
           }
         },
+        "videotop": {
+          "type": "Link",
+          "config": {
+            "label": "VideoTop",
+            "placeholder": "",
+            "select": "media",
+            "allowText": true
+          }
+        },
+        "videotop_2": {
+          "type": "Link",
+          "config": {
+            "label": "VideoTop_2",
+            "placeholder": "",
+            "select": "media",
+            "allowText": true
+          }
+        },
         "ProjectImg": {
           "type": "Image",
           "config": {
@@ -59,6 +77,15 @@
             "label": "",
             "constraint": {},
             "thumbnails": []
+          }
+        },
+        "videobottom": {
+          "type": "Link",
+          "config": {
+            "label": "VideoBottom",
+            "placeholder": "",
+            "select": "media",
+            "allowText": true
           }
         },
         "video": {

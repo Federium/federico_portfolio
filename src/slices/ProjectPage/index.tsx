@@ -24,7 +24,10 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
   ].filter(img => img && img.url); // Filtra solo le immagini che esistono
 
   // Controlla se ci sono media (immagini o video)
-  const hasMedia = projectImages.length > 0 || (slice.primary.video && slice.primary.video.embed_url);
+  const hasMedia = projectImages.length > 0 || 
+    (slice.primary.video && slice.primary.video.embed_url) ||
+    (slice.primary.videotop && 'url' in slice.primary.videotop && slice.primary.videotop.url) ||
+    (slice.primary.videobottom && 'url' in slice.primary.videobottom && slice.primary.videobottom.url);
 
   // Funzione per convertire URL YouTube in formato embed
   const getYouTubeEmbedUrl = (url: string) => {
@@ -112,6 +115,22 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
       
       {/* Project Images Gallery */}
       <div id="project-image" className="space-y-8">
+        {/* Video Top */}
+        {slice.primary.videotop && 'url' in slice.primary.videotop && slice.primary.videotop.url && (
+          <div className={imageContainerStyle}>
+            <div className={imageWrapperStyle}>
+              <video
+                src={slice.primary.videotop.url}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={imageStyle}
+              />
+            </div>
+          </div>
+        )}
+
         {/* Render tutte le immagini con stile uniforme */}
         {projectImages.map((image, index) => (
           <div key={index} className={imageContainerStyle}>
@@ -152,6 +171,22 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
                 className="relative w-full overflow-hidden video-container"
                 style={{ aspectRatio: '16/9' }}
                 dangerouslySetInnerHTML={{ __html: slice.primary.video.html }}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Video Bottom */}
+        {slice.primary.videobottom && 'url' in slice.primary.videobottom && slice.primary.videobottom.url && (
+          <div className={imageContainerStyle}>
+            <div className={imageWrapperStyle}>
+              <video
+                src={slice.primary.videobottom.url}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={imageStyle}
               />
             </div>
           </div>

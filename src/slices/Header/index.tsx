@@ -11,40 +11,29 @@ type HeaderProps = SliceComponentProps<Content.HeaderSlice>;
 
 const Header: FC<HeaderProps> = ({ slice }) => {
   return (
-    <section style={{ mixBlendMode: 'difference' }}>
+    <section>
       <PrismicRichText
-        field={slice.primary.RichText}
-        components={{
-          heading1: ({ children }) => (
-            <h1 
-              className="font-bold text-blue-600"
-              style={{
-                fontSize: 'clamp(1.5rem, 4vw, 3rem)',
-                lineHeight: '1.2'
-              }}
-            >
-              {children}
-            </h1>
-          ),
-          hyperlink: ({ node, children }) => (
-            <PrismicNextLink 
-              field={node.data}
-              style={{
-                textDecoration: 'underline',
-                color: 'inherit',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'red';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'inherit';
-              }}
-            >
-              {children}
-            </PrismicNextLink>
-          )
-        }}
-      />
+                field={slice.primary.RichText}
+                components={{
+                  heading1: ({ children }) => (
+                    <h1
+                      className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono"
+                      style={{ mixBlendMode: 'difference' }}
+                    >
+                      {children}
+                    </h1>
+                  ),
+                  hyperlink: ({ node, children }) => (
+                    <PrismicNextLink 
+                      field={node.data}
+                      className="underline underline-offset-2 text-primary hover:text-accent"
+                      style={{ mixBlendMode: 'difference' }}
+                    >
+                      {children}
+                    </PrismicNextLink>
+                  )
+                }}
+              />
     </section>
   );
 };

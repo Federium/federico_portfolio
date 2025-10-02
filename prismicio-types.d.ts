@@ -246,6 +246,26 @@ export interface ProjectPageSliceDefaultPrimary {
   ProjectText: prismic.RichTextField;
 
   /**
+   * VideoTop field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.videotop
+   * - **Documentation**: https://prismic.io/docs/fields/link-to-media
+   */
+  videotop: prismic.LinkToMediaField<prismic.FieldState, never>;
+
+  /**
+   * VideoTop_2 field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.videotop_2
+   * - **Documentation**: https://prismic.io/docs/fields/link-to-media
+   */
+  videotop_2: prismic.LinkToMediaField<prismic.FieldState, never>;
+
+  /**
    * ProjectImg field in *ProjectPage → Default → Primary*
    *
    * - **Field Type**: Image
@@ -294,6 +314,16 @@ export interface ProjectPageSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   ProjectImg5: prismic.ImageField<never>;
+
+  /**
+   * VideoBottom field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.videobottom
+   * - **Documentation**: https://prismic.io/docs/fields/link-to-media
+   */
+  videobottom: prismic.LinkToMediaField<prismic.FieldState, never>;
 
   /**
    * video field in *ProjectPage → Default → Primary*
