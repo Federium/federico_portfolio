@@ -4,9 +4,9 @@
 
 /* Variabili colori globali */
 :root {
-  --color-primary: #000000;     /* Nero per il testo principale */
-  --color-secondary: #374151;   /* Grigio scuro per testo secondario */
-  --color-accent: #dc2626;      /* Rosso per gli hover/accent */
+  --color-primary: #FFFFFF;     /* Bianco per il testo principale con effetto difference */
+  --color-secondary: #FFFFFF;   /* Bianco per testo secondario */
+  --color-accent: #f20000;      /* Grigio per gli hover/accent - creerà contrasto con difference */
 }
 
 /* Classi personalizzate per i colori */
@@ -25,6 +25,28 @@
   
   .hover\:text-accent:hover {
     color: var(--color-accent) !important;
+  }
+}
+
+/* Emoji isolation from blend mode */
+.emoji {
+  mix-blend-mode: normal;
+  display: inline-block;
+}
+
+/* Exclude emoji from mix-blend-mode effect */
+h1, a {
+  isolation: isolate;
+}
+
+h1 > *, a > * {
+  mix-blend-mode: inherit;
+}
+
+/* Reset blend mode for emoji characters */
+@supports (font-family: "Noto Color Emoji") {
+  *::first-letter {
+    mix-blend-mode: normal;
   }
 }
 

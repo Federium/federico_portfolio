@@ -11,7 +11,7 @@ type HeaderProps = SliceComponentProps<Content.HeaderSlice>;
 
 const Header: FC<HeaderProps> = ({ slice }) => {
   return (
-    <section>
+    <section style={{ mixBlendMode: 'difference' }}>
       <PrismicRichText
         field={slice.primary.RichText}
         components={{

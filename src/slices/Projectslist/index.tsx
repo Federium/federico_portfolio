@@ -47,6 +47,7 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
         data-slice-type={slice.slice_type}
         data-slice-variation={slice.variation}
         className="relative z-10"
+        style={{ mixBlendMode: 'difference' }}
       >
         <PrismicRichText
           field={slice.primary.ProjectsList}

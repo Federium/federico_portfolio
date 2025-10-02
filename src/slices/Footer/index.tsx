@@ -8,7 +8,7 @@ type FooterProps = SliceComponentProps<Content.FooterSlice>;
 
 const Footer: FC<FooterProps> = ({ slice }) => {
   return (
-    <footer className="">
+    <footer className="" style={{ mixBlendMode: 'difference' }}>
       <PrismicRichText field={slice.primary?.FooterText}
       components={{
           paragraph: ({ children }) => (

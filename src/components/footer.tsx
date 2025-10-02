@@ -15,7 +15,7 @@ const Footer: FC = async () => {
     }
 
     return (
-      <footer className="mt-auto py-4 border-t border-gray-200">
+      <footer className="mt-auto py-4 border-t border-gray-200" style={{ mixBlendMode: 'difference' }}>
         <PrismicRichText 
           field={footerSlice.primary?.FooterText}
           components={{

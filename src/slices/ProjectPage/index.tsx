@@ -70,9 +70,10 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
   };
 
   // Stile comune per le immagini
-  const imageContainerStyle = "mt-8 mb-8";
-  const imageStyle = "w-full h-auto object-cover max-w-full";
-  const imageSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw";
+  const imageContainerStyle = "mt-8 mb-8 flex justify-center";
+  const imageWrapperStyle = "w-full md:w-4/5 lg:w-4/5 xl:w-4/5";
+  const imageStyle = "w-full h-auto";
+  const imageSizes = "(max-width: 768px) 100vw, (max-width: 1024px) 80vw, (max-width: 1280px) 60vw, 50vw";
 
   return (
     <section
@@ -80,20 +81,22 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       {/* Project Text */}
-      <PrismicRichText
-        field={slice.primary.ProjectText}
-        components={{
-          paragraph: ({ children }) => (
-            <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary mb-20 leading-relaxed break-words overflow-wrap-anywhere">
-              {children}
-            </p>
-          )
-        }}
-      />
+      <div style={{ mixBlendMode: 'difference' }}>
+        <PrismicRichText
+          field={slice.primary.ProjectText}
+          components={{
+            paragraph: ({ children }) => (
+              <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary mb-20 leading-relaxed break-words overflow-wrap-anywhere">
+                {children}
+              </p>
+            )
+          }}
+        />
+      </div>
       
       {/* Scroll Down Arrow Button */}
       {hasMedia && (
-        <div className="flex mb-12">
+        <div className="flex mb-12" style={{ mixBlendMode: 'difference' }}>
           <button
             onClick={scrollToImage}
             className="group flex flex-col space-y-2 text-primary hover:text-accent cursor-pointer"
@@ -112,27 +115,31 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
         {/* Render tutte le immagini con stile uniforme */}
         {projectImages.map((image, index) => (
           <div key={index} className={imageContainerStyle}>
-            <PrismicNextImage
-              field={image}
-              className={imageStyle}
-              sizes={imageSizes}
-            />
+            <div className={imageWrapperStyle}>
+              <PrismicNextImage
+                field={image}
+                className={imageStyle}
+                sizes={imageSizes}
+              />
+            </div>
           </div>
         ))}
 
         {/* Project Video */}
         {slice.primary.video && slice.primary.video.embed_url && (
           <div className={imageContainerStyle}>
-            <div className="relative w-full  overflow-hidden " style={{ aspectRatio: '16/9' }}>
-              <iframe
-                src={getYouTubeEmbedUrl(slice.primary.video.embed_url)}
-                className="absolute inset-0 w-full h-full border-0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-                title="Project Video"
-                referrerPolicy="strict-origin-when-cross-origin"
-              />
+            <div className={imageWrapperStyle}>
+              <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                <iframe
+                  src={getYouTubeEmbedUrl(slice.primary.video.embed_url)}
+                  className="absolute inset-0 w-full h-full border-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="lazy"
+                  title="Project Video"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
             </div>
           </div>
         )}
@@ -140,18 +147,20 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
         {/* Fallback for video HTML */}
         {slice.primary.video && slice.primary.video.html && !slice.primary.video.embed_url && (
           <div className={imageContainerStyle}>
-            <div 
-              className="relative w-full overflow-hidden video-container"
-              style={{ aspectRatio: '16/9' }}
-              dangerouslySetInnerHTML={{ __html: slice.primary.video.html }}
-            />
+            <div className={imageWrapperStyle}>
+              <div 
+                className="relative w-full overflow-hidden video-container"
+                style={{ aspectRatio: '16/9' }}
+                dangerouslySetInnerHTML={{ __html: slice.primary.video.html }}
+              />
+            </div>
           </div>
         )}
       </div>
 
       {/* Return Button - Full Viewport Height at the bottom */}
       {slice.primary.ReturnButton && (
-        <div className="h-screen flex items-center">
+        <div className="h-screen flex items-center" style={{ mixBlendMode: 'difference' }}>
           <PrismicRichText
             field={slice.primary.ReturnButton}
             components={{
