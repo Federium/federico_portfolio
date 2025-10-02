@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Variabili colori globali */
+:root {
+  --color-primary: #000000;     /* Nero per il testo principale */
+  --color-secondary: #374151;   /* Grigio scuro per testo secondario */
+  --color-accent: #dc2626;      /* Rosso per gli hover/accent */
+}
+
+/* Classi personalizzate per i colori */
+@layer utilities {
+  .text-primary {
+    color: var(--color-primary) !important;
+  }
+  
+  .text-secondary {
+    color: var(--color-secondary) !important;
+  }
+  
+  .text-accent {
+    color: var(--color-accent) !important;
+  }
+  
+  .hover\:text-accent:hover {
+    color: var(--color-accent) !important;
+  }
+}
+
 /* Video embedded styles */
 .video-container iframe {
   position: absolute;

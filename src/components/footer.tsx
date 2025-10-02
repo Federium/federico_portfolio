@@ -20,7 +20,7 @@ const Footer: FC = async () => {
           field={footerSlice.primary?.FooterText}
           components={{
             paragraph: ({ children }) => (
-              <p className="text-sm text-blue-600">
+              <p className="text-sm text-primary">
                 {children}
               </p>
             ),

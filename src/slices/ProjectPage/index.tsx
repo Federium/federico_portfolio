@@ -84,7 +84,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
         field={slice.primary.ProjectText}
         components={{
           paragraph: ({ children }) => (
-            <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 mb-20 leading-relaxed break-words overflow-wrap-anywhere">
+            <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary mb-20 leading-relaxed break-words overflow-wrap-anywhere">
               {children}
             </p>
           )
@@ -96,7 +96,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
         <div className="flex mb-12">
           <button
             onClick={scrollToImage}
-            className="group flex flex-col space-y-2 text-blue-600 hover:text-red-600 transition-colors duration-300 cursor-pointer"
+            className="group flex flex-col space-y-2 text-primary hover:text-accent cursor-pointer"
             aria-label="Scroll to images"
           >
             <span className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">↓</span>
@@ -156,14 +156,14 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
             field={slice.primary.ReturnButton}
             components={{
               paragraph: ({ children }) => (
-                <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 leading-normal">
+                <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary leading-normal">
                   {children}
                 </p>
               ),
               hyperlink: ({ node, children }) => (
                 <PrismicNextLink 
                   field={node.data}
-                  className="underline text-blue-600 hover:text-red-600"
+                  className="underline text-primary hover:text-accent"
                 >
                   {children}
                 </PrismicNextLink>

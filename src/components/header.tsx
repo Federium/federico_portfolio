@@ -23,14 +23,14 @@ const Header: FC = async () => {
           field={headerSlice.primary.RichText}
           components={{
             heading1: ({ children }) => (
-              <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-blue-600 !leading-normal font-mono">
+              <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono">
                 {children}
               </h1>
             ),
             hyperlink: ({ node, children }) => (
               <PrismicNextLink 
                 field={node.data}
-                className="underline underline-offset-2 text-blue-600 hover:text-red-600"
+                className="underline underline-offset-2 text-primary hover:text-accent"
               >
                 {children}
               </PrismicNextLink>
