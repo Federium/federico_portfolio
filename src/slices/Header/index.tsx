@@ -17,11 +17,26 @@ const Header: FC<HeaderProps> = ({ slice }) => {
                 components={{
                   heading1: ({ children }) => (
                     <h1
-                      className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono"
+                      className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono mb-8"
                       style={{ mixBlendMode: 'difference' }}
                     >
                       {children}
                     </h1>
+                  ),
+                  heading2: ({ children }) => (
+                    <h2
+                      className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono mt-8"
+                      style={{ mixBlendMode: 'difference' }}
+                    >
+                      {children}
+                    </h2>
+                  ),
+                  paragraph: ({ children }) => (
+                    <p className="text-xs sm:text-sm md:text-base text-primary"
+                      style={{ mixBlendMode: 'difference' }}
+                    >
+                      {children}
+                    </p>
                   ),
                   hyperlink: ({ node, children }) => (
                     <PrismicNextLink 

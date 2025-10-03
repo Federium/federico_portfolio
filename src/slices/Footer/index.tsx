@@ -12,7 +12,7 @@ const Footer: FC<FooterProps> = ({ slice }) => {
       <PrismicRichText field={slice.primary?.FooterText}
       components={{
           paragraph: ({ children }) => (
-            <p className="text-xs sm:text-sm md:text-base text-blue-600">{children}</p>
+            <p className="text-xs sm:text-sm md:text-base text-primary">{children}</p>
           ),
         }}  
         />

@@ -4,6 +4,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { createClient } from "@/prismicio";
 import { HeaderSlice } from "../../prismicio-types";
 import { EmojiText } from "./EmojiText";
+import { RotatingHeader } from "./RotatingHeader";
 
 const Header: FC = async () => {
   const client = createClient();
@@ -20,28 +21,28 @@ const Header: FC = async () => {
 
     return (
       <header>
-        <PrismicRichText
-          field={headerSlice.primary.RichText}
-          components={{
-            heading1: ({ children }) => (
-              <EmojiText
-                className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono"
-                style={{ mixBlendMode: 'difference' }}
-              >
-                {children}
-              </EmojiText>
-            ),
-            hyperlink: ({ node, children }) => (
-              <PrismicNextLink 
-                field={node.data}
-                className="underline underline-offset-2 text-primary hover:text-accent"
-                style={{ mixBlendMode: 'difference' }}
-              >
-                {children}
-              </PrismicNextLink>
-            )
-          }}
-        />
+        <RotatingHeader>
+          <PrismicRichText
+            field={headerSlice.primary.RichText}
+            components={{
+              heading1: ({ children }) => (
+                <EmojiText
+                  className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono"
+                >
+                  {children}
+                </EmojiText>
+              ),
+              hyperlink: ({ node, children }) => (
+                <PrismicNextLink 
+                  field={node.data}
+                  className="underline underline-offset-2 text-primary hover:text-accent"
+                >
+                  {children}
+                </PrismicNextLink>
+              )
+            }}
+          />
+        </RotatingHeader>
       </header>
     );
   } catch (error) {
