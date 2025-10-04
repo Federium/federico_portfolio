@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useState, useRef, useEffect } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
 import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
@@ -14,25 +14,72 @@ export type ProjectslistProps = SliceComponentProps<Content.ProjectslistSlice>;
  * Component for "Projectslist" Slices.
  */
 const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
-  // Stato per mostrare/nascondere l'immagine di anteprima
-  const [showPreview, setShowPreview] = useState(false);
+  // Stato per controllare la visibilità e l'opacità dell'immagine
+  const [isVisible, setIsVisible] = useState(false);
+  const [opacity, setOpacity] = useState(0);
+  
+  // Ref per gestire i timeout
+  const showTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Cleanup dei timeout quando il componente viene smontato
+  useEffect(() => {
+    return () => {
+      if (showTimeoutRef.current) clearTimeout(showTimeoutRef.current);
+      if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
+    };
+  }, []);
 
   // Handler per il mouse enter sui link
   const handleLinkHover = () => {
-    if (slice.primary.imgpreview && slice.primary.imgpreview.url) {
-      setShowPreview(true);
+    if (!slice.primary.imgpreview || !slice.primary.imgpreview.url) return;
+    
+    // Cancella eventuali timeout di nascondimento in corso
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
+    }
+    
+    // Mostra immediatamente l'immagine se non è già visibile
+    if (!isVisible) {
+      setIsVisible(true);
+      // Piccolo delay per permettere al DOM di aggiornare prima di fare fade in
+      showTimeoutRef.current = setTimeout(() => {
+        setOpacity(1);
+      }, 10);
+    } else {
+      // Se è già visibile, aumenta solo l'opacità
+      setOpacity(1);
     }
   };
 
   // Handler per il mouse leave sui link
   const handleLinkLeave = () => {
-    setShowPreview(false);
+    // Cancella eventuali timeout di visualizzazione in corso
+    if (showTimeoutRef.current) {
+      clearTimeout(showTimeoutRef.current);
+      showTimeoutRef.current = null;
+    }
+    
+    // Inizia il fade out
+    setOpacity(0);
+    
+    // Rimuovi l'immagine dal DOM dopo la transizione
+    hideTimeoutRef.current = setTimeout(() => {
+      setIsVisible(false);
+    }, 300); // Deve corrispondere alla durata della transizione CSS
   };
+
   return (
     <>
       {/* Immagine di anteprima dietro alla lista */}
-      {showPreview && slice.primary.imgpreview && slice.primary.imgpreview.url && (
-        <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
+      {isVisible && slice.primary.imgpreview && slice.primary.imgpreview.url && (
+        <div 
+          className="fixed inset-0 flex items-center justify-center pointer-events-none z-0"
+          style={{
+            opacity: opacity,
+          }}
+        >
           <div className="relative max-w-md max-h-96 mx-4">
             <PrismicNextImage
               field={slice.primary.imgpreview}
