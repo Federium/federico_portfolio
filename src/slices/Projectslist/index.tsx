@@ -18,6 +18,9 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [opacity, setOpacity] = useState(0);
   
+  // Ref per tracciare se il mouse è sopra un link
+  const isHoveringRef = useRef(false);
+  
   // Ref per gestire i timeout
   const showTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -30,9 +33,24 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
     };
   }, []);
 
+  // Effetto per verificare periodicamente se il mouse è ancora sopra un link
+  useEffect(() => {
+    const checkInterval = setInterval(() => {
+      // Se l'immagine è visibile ma il mouse non è più sopra un link, nascondi l'immagine
+      if (isVisible && !isHoveringRef.current) {
+        handleLinkLeave();
+      }
+    }, 100);
+
+    return () => clearInterval(checkInterval);
+  }, [isVisible]);
+
   // Handler per il mouse enter sui link
   const handleLinkHover = () => {
     if (!slice.primary.imgpreview || !slice.primary.imgpreview.url) return;
+    
+    // Segna che il mouse è sopra un link
+    isHoveringRef.current = true;
     
     // Cancella eventuali timeout di nascondimento in corso
     if (hideTimeoutRef.current) {
@@ -55,6 +73,9 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
 
   // Handler per il mouse leave sui link
   const handleLinkLeave = () => {
+    // Segna che il mouse non è più sopra un link
+    isHoveringRef.current = false;
+    
     // Cancella eventuali timeout di visualizzazione in corso
     if (showTimeoutRef.current) {
       clearTimeout(showTimeoutRef.current);

@@ -65,9 +65,12 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
   const scrollToImage = () => {
     const imageElement = document.getElementById('project-image');
     if (imageElement) {
-      imageElement.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      const elementPosition = imageElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - 80; // 100px di margine dall'alto
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
       });
     }
   };
@@ -111,7 +114,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
       )}
       
       {/* Spacer to push images below viewport */}
-      <div className="h-screen"></div>
+      <div className="h-[40vh]"></div>
       
       {/* Project Images Gallery */}
       <div id="project-image" className="space-y-8">

@@ -4,9 +4,9 @@
 
 /* Variabili colori globali */
 :root {
-  --color-primary: #FFFFFF;     /* Bianco per il testo principale con effetto difference */
+  --color-primary: #BBDAF7;     /* Bianco per il testo principale con effetto difference */
   --color-secondary: #FFFFFF;   /* Bianco per testo secondario */
-  --color-accent: #f20000;      /* Grigio per gli hover/accent - creerà contrasto con difference */
+  --color-accent: #412205;      /* Grigio per gli hover/accent - creerà contrasto con difference */
 }
 
 /* Classi personalizzate per i colori */
