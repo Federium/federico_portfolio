@@ -147,25 +147,6 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
           </div>
         ))}
 
-        {/* Project Video */}
-        {slice.primary.video && slice.primary.video.embed_url && (
-          <div className={imageContainerStyle}>
-            <div className={imageWrapperStyle}>
-              <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
-                <iframe
-                  src={getYouTubeEmbedUrl(slice.primary.video.embed_url)}
-                  className="absolute inset-0 w-full h-full border-0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  loading="lazy"
-                  title="Project Video"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Fallback for video HTML */}
         {slice.primary.video && slice.primary.video.html && !slice.primary.video.embed_url && (
           <div className={imageContainerStyle}>
@@ -195,6 +176,25 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
           </div>
         )}
       </div>
+
+      {/* Project Video */}
+        {slice.primary.video && slice.primary.video.embed_url && (
+          <div className={imageContainerStyle}>
+            <div className={imageWrapperStyle}>
+              <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                <iframe
+                  src={getYouTubeEmbedUrl(slice.primary.video.embed_url)}
+                  className="absolute inset-0 w-full h-full border-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="lazy"
+                  title="Project Video"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
       {/* Return Button - Full Viewport Height at the bottom */}
       {slice.primary.ReturnButton && (
