@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
 import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
@@ -14,18 +14,34 @@ export type ProjectslistProps = SliceComponentProps<Content.ProjectslistSlice>;
  * Component for "Projectslist" Slices.
  */
 const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <div className="relative group">
       {/* Immagine di anteprima dietro alla lista - sempre nel DOM, controllata solo da CSS */}
       {slice.primary.imgpreview && slice.primary.imgpreview.url && (
         <div 
-          className="preview-image fixed inset-0 flex items-center justify-center pointer-events-none z-0 opacity-0 transition-opacity duration-300 ease-in-out"
+          className="preview-image fixed pointer-events-none z-0 opacity-0"
+          style={{
+            left: `${mousePos.x}px`,
+            top: `${mousePos.y}px`,
+            transform: 'translate(-50%, -50%)',
+          }}
         >
-          <div className="relative max-w-md max-h-96 mx-4">
+          <div className="relative max-w-md max-h-96">
             <PrismicNextImage
               field={slice.primary.imgpreview}
               className="w-full h-auto object-contain max-h-96"
-              style={{ maxWidth: '600px' }}
+              style={{ maxWidth: '400px' }}
             />
           </div>
         </div>
