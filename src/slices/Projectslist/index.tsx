@@ -59,23 +59,23 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
             hyperlink: ({ node, children }) => (
               <PrismicNextLink 
                 field={node.data}
-                className="project-link underline underline-offset-2 text-primary hover:text-accent relative z-10"
+                className="project-link underline underline-offset-2 text-primary hover:text-accent relative z-10 "
               >
                 {children}
               </PrismicNextLink>
             ),
             list: ({ children }) => (
-              <ul className="list-none list-inside space-y-16 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary break-words overflow-wrap-anywhere relative z-10">
+              <ul className="list-none list-inside space-y-16 text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary break-words overflow-wrap-anywhere relative z-10">
                 {children}
               </ul>
             ),
             oList: ({ children }) => (
-              <ol className="list-none list-inside mb-4 space-y-16 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary break-words overflow-wrap-anywhere relative z-10">
+              <ol className="list-none list-inside mb-4 space-y-16 text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary break-words overflow-wrap-anywhere relative z-10">
                 {children}
               </ol>
             ),
             listItem: ({ children }) => (
-              <li className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary py-8 break-words overflow-wrap-anywhere whitespace-normal relative z-10">
+              <li className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary py-8 break-words overflow-wrap-anywhere whitespace-normal relative z-10">
                 {children}
               </li>
             ),

@@ -92,7 +92,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
           field={slice.primary.ProjectText}
           components={{
             paragraph: ({ children }) => (
-              <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary mb-20 leading-relaxed break-words overflow-wrap-anywhere">
+              <p className="text-base sm:text-base md:text-2xl lg:text-3xl xl:text-4xl text-primary mb-8 leading-relaxed break-words overflow-wrap-anywhere">
                 {children}
               </p>
             )
@@ -105,7 +105,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
         <div className="flex mb-12" style={{ mixBlendMode: 'difference' }}>
           <button
             onClick={scrollToImage}
-            className="group flex flex-col space-y-2 text-primary hover:text-accent cursor-pointer"
+            className="group flex flex-col space-y-2 text-primary hover:text-accent cursor-pointer mt-12"
             aria-label="Scroll to images"
           >
             <span className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">↓</span>
@@ -203,7 +203,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
             field={slice.primary.ReturnButton}
             components={{
               paragraph: ({ children }) => (
-                <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary leading-normal">
+                <p className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary leading-normal">
                   {children}
                 </p>
               ),

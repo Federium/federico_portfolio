@@ -27,7 +27,7 @@ const Header: FC = async () => {
             components={{
               heading1: ({ children }) => (
                 <EmojiText
-                  className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono"
+                  className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono"
                 >
                   {children}
                 </EmojiText>

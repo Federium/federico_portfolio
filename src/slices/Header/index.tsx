@@ -17,7 +17,7 @@ const Header: FC<HeaderProps> = ({ slice }) => {
                 components={{
                   heading1: ({ children }) => (
                     <h1
-                      className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono mb-8"
+                      className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono mb-8"
                       style={{ mixBlendMode: 'difference' }}
                     >
                       {children}
@@ -25,7 +25,7 @@ const Header: FC<HeaderProps> = ({ slice }) => {
                   ),
                   heading2: ({ children }) => (
                     <h2
-                      className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono mt-8"
+                      className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono mt-8"
                       style={{ mixBlendMode: 'difference' }}
                     >
                       {children}
