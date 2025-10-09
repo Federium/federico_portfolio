@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { asText } from "@prismicio/client";
+import { asText, Content } from "@prismicio/client";
 import { SliceZone } from "@prismicio/react";
 
 import { getHomepage } from "@/prismicio";
@@ -9,12 +9,6 @@ import { components } from "@/slices";
 import Header from "@/components/header";
 import ISRDebug from "@/components/ISRDebug";
 import ProjectsListWrapper from "@/components/ProjectsListWrapper";
-
-interface Slice {
-  slice_type: string;
-  primary: Record<string, unknown>;
-  items?: Record<string, unknown>[];
-}
 
 /**
  * Homepage del sito con supporto ISR
@@ -36,13 +30,13 @@ export default async function Home() {
   }
 
   // Filter out both header and footer slices since header is now shown manually
-  const contentSlices = home.data.slices.filter((slice: Slice) => 
+  const contentSlices = home.data.slices.filter((slice) => 
     slice.slice_type !== 'footer' && slice.slice_type !== 'header'
   );
 
   // Check if there are any projectslist slices
-  const projectSlices = contentSlices.filter((slice: Slice) => slice.slice_type === 'projectslist');
-  const otherSlices = contentSlices.filter((slice: Slice) => slice.slice_type !== 'projectslist');
+  const projectSlices = contentSlices.filter((slice) => slice.slice_type === 'projectslist');
+  const otherSlices = contentSlices.filter((slice) => slice.slice_type !== 'projectslist');
 
   return (
     <>
@@ -51,7 +45,7 @@ export default async function Home() {
       {otherSlices.length > 0 && <SliceZone slices={otherSlices} components={components} />}
       
       {/* Render projects with wrapper if there are any */}
-      {projectSlices.length > 0 && <ProjectsListWrapper projects={projectSlices as any} />}
+      {projectSlices.length > 0 && <ProjectsListWrapper projects={projectSlices as Content.ProjectslistSlice[]} />}
       
       <ISRDebug 
         pageType="homepage" 

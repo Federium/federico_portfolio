@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useState } from "react";
-import { Content, LinkField, RichTextField } from "@prismicio/client";
+import { Content, LinkField } from "@prismicio/client";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { asText } from "@prismicio/client";
 import Projectslist from "@/slices/Projectslist";
@@ -19,7 +19,7 @@ const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
   // Extract project title from ProjectsList rich text
   const getProjectTitle = (project: Content.ProjectslistSlice): string => {
     if (project.primary.ProjectsList && Array.isArray(project.primary.ProjectsList)) {
-      return asText(project.primary.ProjectsList as any) || 'Progetto';
+      return asText(project.primary.ProjectsList) || 'Progetto';
     }
     return 'Progetto';
   };
@@ -28,17 +28,19 @@ const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
   const getProjectLink = (project: Content.ProjectslistSlice): LinkField | null => {
     if (project.primary.ProjectsList && Array.isArray(project.primary.ProjectsList)) {
       // Search for hyperlink in the rich text structure
-      for (const element of project.primary.ProjectsList as any[]) {
-        if (element.spans && Array.isArray(element.spans)) {
-          for (const span of element.spans) {
-            if (span.type === 'hyperlink' && span.data) {
-              return span.data as LinkField;
+      for (const element of project.primary.ProjectsList) {
+        const elem = element as { spans?: unknown[]; type?: string; data?: unknown };
+        if (elem.spans && Array.isArray(elem.spans)) {
+          for (const span of elem.spans) {
+            const spanData = span as { type?: string; data?: LinkField };
+            if (spanData.type === 'hyperlink' && spanData.data) {
+              return spanData.data;
             }
           }
         }
         // Also check if there's a direct link in the element
-        if (element.type === 'hyperlink' && element.data) {
-          return element.data as LinkField;
+        if (elem.type === 'hyperlink' && elem.data) {
+          return elem.data as LinkField;
         }
       }
     }
@@ -91,12 +93,7 @@ const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
             {projects.map((project, index) => {
               if (!project.primary.imgpreview?.url) return null;
               
-              const title = getProjectTitle(project);
               const link = getProjectLink(project);
-              
-              if (index === 0) {
-                console.log('First project:', { title, link, project: project.primary.ProjectsList });
-              }
               
               const imageContent = (
                 <div className="relative group">

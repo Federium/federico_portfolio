@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { asText } from "@prismicio/client";
+import { asText, Content } from "@prismicio/client";
 import { SliceZone } from "@prismicio/react";
 
 import { getPage, getAllPageUIDs } from "@/prismicio";
@@ -10,12 +10,6 @@ import ISRDebug from "@/components/ISRDebug";
 import ProjectsListWrapper from "@/components/ProjectsListWrapper";
 
 type Params = { uid: string };
-
-interface Slice {
-  slice_type: string;
-  primary: Record<string, unknown>;
-  items?: Record<string, unknown>[];
-}
 
 /**
  * Pagina dinamica per le pagine Prismic con supporto ISR
@@ -39,8 +33,8 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   }
 
   // Check if there are any projectslist slices
-  const projectSlices = page.data.slices.filter((slice: Slice) => slice.slice_type === 'projectslist');
-  const otherSlices = page.data.slices.filter((slice: Slice) => slice.slice_type !== 'projectslist');
+  const projectSlices = page.data.slices.filter((slice) => slice.slice_type === 'projectslist');
+  const otherSlices = page.data.slices.filter((slice) => slice.slice_type !== 'projectslist');
 
   // Render delle slice della pagina
   return (
@@ -49,7 +43,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       {otherSlices.length > 0 && <SliceZone slices={otherSlices} components={components} />}
       
       {/* Render projects with wrapper if there are any */}
-      {projectSlices.length > 0 && <ProjectsListWrapper projects={projectSlices as any} />}
+      {projectSlices.length > 0 && <ProjectsListWrapper projects={projectSlices as Content.ProjectslistSlice[]} />}
       
       <ISRDebug 
         pageType="dynamic" 
