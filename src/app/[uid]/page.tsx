@@ -7,8 +7,15 @@ import { SliceZone } from "@prismicio/react";
 import { getPage, getAllPageUIDs } from "@/prismicio";
 import { components } from "@/slices";
 import ISRDebug from "@/components/ISRDebug";
+import ProjectsListWrapper from "@/components/ProjectsListWrapper";
 
 type Params = { uid: string };
+
+interface Slice {
+  slice_type: string;
+  primary: Record<string, unknown>;
+  items?: Record<string, unknown>[];
+}
 
 /**
  * Pagina dinamica per le pagine Prismic con supporto ISR
@@ -31,10 +38,19 @@ export default async function Page({ params }: { params: Promise<Params> }) {
     notFound();
   }
 
+  // Check if there are any projectslist slices
+  const projectSlices = page.data.slices.filter((slice: Slice) => slice.slice_type === 'projectslist');
+  const otherSlices = page.data.slices.filter((slice: Slice) => slice.slice_type !== 'projectslist');
+
   // Render delle slice della pagina
   return (
     <>
-      <SliceZone slices={page.data.slices} components={components} />
+      {/* Render other slices first */}
+      {otherSlices.length > 0 && <SliceZone slices={otherSlices} components={components} />}
+      
+      {/* Render projects with wrapper if there are any */}
+      {projectSlices.length > 0 && <ProjectsListWrapper projects={projectSlices as any} />}
+      
       <ISRDebug 
         pageType="dynamic" 
         uid={uid}

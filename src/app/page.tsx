@@ -8,6 +8,7 @@ import { getHomepage } from "@/prismicio";
 import { components } from "@/slices";
 import Header from "@/components/header";
 import ISRDebug from "@/components/ISRDebug";
+import ProjectsListWrapper from "@/components/ProjectsListWrapper";
 
 interface Slice {
   slice_type: string;
@@ -39,10 +40,19 @@ export default async function Home() {
     slice.slice_type !== 'footer' && slice.slice_type !== 'header'
   );
 
+  // Check if there are any projectslist slices
+  const projectSlices = contentSlices.filter((slice: Slice) => slice.slice_type === 'projectslist');
+  const otherSlices = contentSlices.filter((slice: Slice) => slice.slice_type !== 'projectslist');
+
   return (
     <>
       <Header />
-      <SliceZone slices={contentSlices} components={components} />
+      {/* Render other slices first */}
+      {otherSlices.length > 0 && <SliceZone slices={otherSlices} components={components} />}
+      
+      {/* Render projects with wrapper if there are any */}
+      {projectSlices.length > 0 && <ProjectsListWrapper projects={projectSlices as any} />}
+      
       <ISRDebug 
         pageType="homepage" 
         lastUpdated={home.last_publication_date}

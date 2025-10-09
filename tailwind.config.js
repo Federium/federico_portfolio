@@ -12,6 +12,12 @@ module.exports = {
       fontFamily: {
         'mono': ['var(--font-jetbrains-mono)', 'monospace'],
       },
+      colors: {
+        primary: '#BBDAF7',
+        secondary: '#FFFFFF',
+        accent: '#02f713',
+        background: '#000000',
+      },
     },
   },
   plugins: [],
