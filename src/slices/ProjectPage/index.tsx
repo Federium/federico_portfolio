@@ -81,8 +81,15 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
   const imageSizes = "(max-width: 768px) 100vw, 50vw";
   const fullWidthImageSizes = "100vw";
 
+  // Tipo per i contenuti media
+  type MediaItem = 
+    | { type: 'video'; content: { url: string } }
+    | { type: 'image'; content: typeof slice.primary.ProjectImg; index?: number }
+    | { type: 'youtube'; content: typeof slice.primary.video }
+    | { type: 'videohtml'; content: typeof slice.primary.video };
+
   // Crea array di tutti i contenuti media in ordine
-  const allMedia: Array<{ type: 'video' | 'image' | 'youtube' | 'videohtml', content: any, index?: number }> = [];
+  const allMedia: MediaItem[] = [];
   
   if (slice.primary.videotop && 'url' in slice.primary.videotop && slice.primary.videotop.url) {
     allMedia.push({ type: 'video', content: slice.primary.videotop });
@@ -161,7 +168,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
                   sizes={fullWidthImageSizes}
                 />
               )}
-              {allMedia[0].type === 'videohtml' && (
+              {allMedia[0].type === 'videohtml' && allMedia[0].content.html && (
                 <div 
                   className="absolute inset-0 w-full h-full"
                   dangerouslySetInnerHTML={{ __html: allMedia[0].content.html }}
@@ -213,7 +220,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
                       sizes={shouldBeFullWidth ? fullWidthImageSizes : imageSizes}
                     />
                   )}
-                  {media.type === 'videohtml' && (
+                  {media.type === 'videohtml' && media.content.html && (
                     <div 
                       className="absolute inset-0 w-full h-full"
                       dangerouslySetInnerHTML={{ __html: media.content.html }}
