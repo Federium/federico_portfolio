@@ -75,11 +75,34 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
     }
   };
 
-  // Stile comune per le immagini
-  const imageContainerStyle = "mt-8 mb-8 flex justify-center";
-  const imageWrapperStyle = "w-full md:w-4/5 lg:w-4/5 xl:w-4/5";
-  const imageStyle = "w-full h-auto";
-  const imageSizes = "(max-width: 768px) 100vw, (max-width: 1024px) 80vw, (max-width: 1280px) 60vw, 50vw";
+  // Stile comune per le immagini - layout a doppia colonna
+  const imageContainerStyle = "relative overflow-hidden";
+  const imageStyle = "absolute inset-0 w-full h-full object-cover";
+  const imageSizes = "(max-width: 768px) 100vw, 50vw";
+  const fullWidthImageSizes = "100vw";
+
+  // Crea array di tutti i contenuti media in ordine
+  const allMedia: Array<{ type: 'video' | 'image' | 'youtube' | 'videohtml', content: any, index?: number }> = [];
+  
+  if (slice.primary.videotop && 'url' in slice.primary.videotop && slice.primary.videotop.url) {
+    allMedia.push({ type: 'video', content: slice.primary.videotop });
+  }
+  
+  projectImages.forEach((image, index) => {
+    allMedia.push({ type: 'image', content: image, index });
+  });
+  
+  if (slice.primary.video && slice.primary.video.html && !slice.primary.video.embed_url) {
+    allMedia.push({ type: 'videohtml', content: slice.primary.video });
+  }
+  
+  if (slice.primary.video && slice.primary.video.embed_url) {
+    allMedia.push({ type: 'youtube', content: slice.primary.video });
+  }
+  
+  if (slice.primary.videobottom && 'url' in slice.primary.videobottom && slice.primary.videobottom.url) {
+    allMedia.push({ type: 'video', content: slice.primary.videobottom });
+  }
 
   return (
     <section
@@ -116,74 +139,37 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
       {/* Spacer to push images below viewport */}
       <div className="h-[40vh]"></div>
       
-      {/* Project Images Gallery */}
-      <div id="project-image" className="space-y-8">
-        {/* Video Top */}
-        {slice.primary.videotop && 'url' in slice.primary.videotop && slice.primary.videotop.url && (
-          <div className={imageContainerStyle}>
-            <div className={imageWrapperStyle}>
-              <video
-                src={slice.primary.videotop.url}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className={imageStyle}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Render tutte le immagini con stile uniforme */}
-        {projectImages.map((image, index) => (
-          <div key={index} className={imageContainerStyle}>
-            <div className={imageWrapperStyle}>
-              <PrismicNextImage
-                field={image}
-                className={imageStyle}
-                sizes={imageSizes}
-              />
-            </div>
-          </div>
-        ))}
-
-        {/* Fallback for video HTML */}
-        {slice.primary.video && slice.primary.video.html && !slice.primary.video.embed_url && (
-          <div className={imageContainerStyle}>
-            <div className={imageWrapperStyle}>
-              <div 
-                className="relative w-full overflow-hidden video-container"
-                style={{ aspectRatio: '16/9' }}
-                dangerouslySetInnerHTML={{ __html: slice.primary.video.html }}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Video Bottom */}
-        {slice.primary.videobottom && 'url' in slice.primary.videobottom && slice.primary.videobottom.url && (
-          <div className={imageContainerStyle}>
-            <div className={imageWrapperStyle}>
-              <video
-                src={slice.primary.videobottom.url}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className={imageStyle}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Project Video */}
-        {slice.primary.video && slice.primary.video.embed_url && (
-          <div className={imageContainerStyle}>
-            <div className={imageWrapperStyle}>
-              <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
+      <div id="project-image">
+        {/* First media item - full width */}
+        {allMedia.length > 0 && (
+          <div className="mb-4">
+            <div className={imageContainerStyle} style={{ aspectRatio: '16/10' }}>
+              {allMedia[0].type === 'video' && (
+                <video
+                  src={allMedia[0].content.url}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className={imageStyle}
+                />
+              )}
+              {allMedia[0].type === 'image' && (
+                <PrismicNextImage
+                  field={allMedia[0].content}
+                  className={imageStyle}
+                  sizes={fullWidthImageSizes}
+                />
+              )}
+              {allMedia[0].type === 'videohtml' && (
+                <div 
+                  className="absolute inset-0 w-full h-full"
+                  dangerouslySetInnerHTML={{ __html: allMedia[0].content.html }}
+                />
+              )}
+              {allMedia[0].type === 'youtube' && (
                 <iframe
-                  src={getYouTubeEmbedUrl(slice.primary.video.embed_url)}
+                  src={getYouTubeEmbedUrl(allMedia[0].content.embed_url)}
                   className="absolute inset-0 w-full h-full border-0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
@@ -191,10 +177,65 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
                   title="Project Video"
                   referrerPolicy="strict-origin-when-cross-origin"
                 />
-              </div>
+              )}
             </div>
           </div>
         )}
+
+        {/* Remaining media items - two columns grid */}
+        {allMedia.length > 1 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {allMedia.slice(1).map((media, index) => {
+              const isLast = index === allMedia.slice(1).length - 1;
+              const isOdd = allMedia.slice(1).length % 2 !== 0;
+              const shouldBeFullWidth = isLast && isOdd;
+              
+              return (
+                <div 
+                  key={index} 
+                  className={`${imageContainerStyle} ${shouldBeFullWidth ? 'md:col-span-2' : ''}`} 
+                  style={{ aspectRatio: '16/10' }}
+                >
+                  {media.type === 'video' && (
+                    <video
+                      src={media.content.url}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className={imageStyle}
+                    />
+                  )}
+                  {media.type === 'image' && (
+                    <PrismicNextImage
+                      field={media.content}
+                      className={imageStyle}
+                      sizes={shouldBeFullWidth ? fullWidthImageSizes : imageSizes}
+                    />
+                  )}
+                  {media.type === 'videohtml' && (
+                    <div 
+                      className="absolute inset-0 w-full h-full"
+                      dangerouslySetInnerHTML={{ __html: media.content.html }}
+                    />
+                  )}
+                  {media.type === 'youtube' && (
+                    <iframe
+                      src={getYouTubeEmbedUrl(media.content.embed_url)}
+                      className="absolute inset-0 w-full h-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      loading="lazy"
+                      title="Project Video"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
       {/* Return Button - Full Viewport Height at the bottom */}
       {slice.primary.ReturnButton && (
