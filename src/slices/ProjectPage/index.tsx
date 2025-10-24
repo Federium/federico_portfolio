@@ -76,8 +76,8 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
   };
 
   // Stile comune per le immagini - layout a doppia colonna
-  const imageContainerStyle = "relative overflow-hidden";
-  const imageStyle = "absolute inset-0 w-full h-full object-cover";
+  const imageContainerStyle = "w-full";
+  const imageStyle = "w-full h-auto";
   const imageSizes = "(max-width: 768px) 100vw, 50vw";
   const fullWidthImageSizes = "100vw";
 
@@ -116,6 +116,36 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
+      {/* Credits - Fixed bottom left with high bottom margin */}
+      {slice.primary.Credits && (
+        <div 
+          className="fixed left-8 z-40" 
+          style={{ 
+            bottom: '6rem',
+            mixBlendMode: 'difference' 
+          }}
+        >
+          <PrismicRichText
+            field={slice.primary.Credits}
+            components={{
+              paragraph: ({ children }) => (
+                <p className="text-sm text-primary">
+                  {children}
+                </p>
+              ),
+              hyperlink: ({ node, children }) => (
+                <PrismicNextLink 
+                  field={node.data}
+                  className="underline text-primary hover:text-accent"
+                >
+                  {children}
+                </PrismicNextLink>
+              )
+            }}
+          />
+        </div>
+      )}
+
       {/* Project Text */}
       <div style={{ mixBlendMode: 'difference' }}>
         <PrismicRichText
@@ -150,31 +180,31 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
         {/* First media item - full width */}
         {allMedia.length > 0 && (
           <div className="mb-4">
-            <div className={imageContainerStyle} style={{ aspectRatio: '16/10' }}>
-              {allMedia[0].type === 'video' && (
-                <video
-                  src={allMedia[0].content.url}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className={imageStyle}
-                />
-              )}
-              {allMedia[0].type === 'image' && (
-                <PrismicNextImage
-                  field={allMedia[0].content}
-                  className={imageStyle}
-                  sizes={fullWidthImageSizes}
-                />
-              )}
-              {allMedia[0].type === 'videohtml' && allMedia[0].content.html && (
-                <div 
-                  className="absolute inset-0 w-full h-full"
-                  dangerouslySetInnerHTML={{ __html: allMedia[0].content.html }}
-                />
-              )}
-              {allMedia[0].type === 'youtube' && (
+            {allMedia[0].type === 'video' && (
+              <video
+                src={allMedia[0].content.url}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={imageStyle}
+              />
+            )}
+            {allMedia[0].type === 'image' && (
+              <PrismicNextImage
+                field={allMedia[0].content}
+                className={imageStyle}
+                sizes={fullWidthImageSizes}
+              />
+            )}
+            {allMedia[0].type === 'videohtml' && allMedia[0].content.html && (
+              <div 
+                className="w-full"
+                dangerouslySetInnerHTML={{ __html: allMedia[0].content.html }}
+              />
+            )}
+            {allMedia[0].type === 'youtube' && (
+              <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
                 <iframe
                   src={getYouTubeEmbedUrl(allMedia[0].content.embed_url)}
                   className="absolute inset-0 w-full h-full border-0"
@@ -184,8 +214,8 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
                   title="Project Video"
                   referrerPolicy="strict-origin-when-cross-origin"
                 />
-              )}
-            </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -200,8 +230,7 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
               return (
                 <div 
                   key={index} 
-                  className={`${imageContainerStyle} ${shouldBeFullWidth ? 'md:col-span-2' : ''}`} 
-                  style={{ aspectRatio: '16/10' }}
+                  className={`${imageContainerStyle} ${shouldBeFullWidth ? 'md:col-span-2' : ''}`}
                 >
                   {media.type === 'video' && (
                     <video
@@ -222,20 +251,22 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
                   )}
                   {media.type === 'videohtml' && media.content.html && (
                     <div 
-                      className="absolute inset-0 w-full h-full"
+                      className="w-full"
                       dangerouslySetInnerHTML={{ __html: media.content.html }}
                     />
                   )}
                   {media.type === 'youtube' && (
-                    <iframe
-                      src={getYouTubeEmbedUrl(media.content.embed_url)}
-                      className="absolute inset-0 w-full h-full border-0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      loading="lazy"
-                      title="Project Video"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                    />
+                    <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                      <iframe
+                        src={getYouTubeEmbedUrl(media.content.embed_url)}
+                        className="absolute inset-0 w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        loading="lazy"
+                        title="Project Video"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                      />
+                    </div>
                   )}
                 </div>
               );

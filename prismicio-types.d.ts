@@ -246,6 +246,16 @@ export interface ProjectPageSliceDefaultPrimary {
   ProjectText: prismic.RichTextField;
 
   /**
+   * Credits field in *ProjectPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_page.default.primary.Credits
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  Credits: prismic.RichTextField;
+
+  /**
    * VideoTop field in *ProjectPage → Default → Primary*
    *
    * - **Field Type**: Link to Media

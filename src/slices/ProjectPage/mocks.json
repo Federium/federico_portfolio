@@ -203,6 +203,17 @@
 					"size": "0",
 					"text": "child"
 				}
+			},
+			"Credits": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Irure nulla exercitation aliquip cupidatat labore Lorem cupidatat enim sit laboris eiusmod adipisicing. Consequat enim id exercitation occaecat irure voluptate. Laboris proident officia consectetur."
+						}
+					}
+				]
 			}
 		},
 		"items": []
