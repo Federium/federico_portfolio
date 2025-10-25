@@ -116,36 +116,6 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {/* Credits - Fixed bottom left with high bottom margin */}
-      {slice.primary.Credits && (
-        <div 
-          className="fixed left-8 z-40" 
-          style={{ 
-            bottom: '6rem',
-            mixBlendMode: 'difference' 
-          }}
-        >
-          <PrismicRichText
-            field={slice.primary.Credits}
-            components={{
-              paragraph: ({ children }) => (
-                <p className="text-sm text-primary">
-                  {children}
-                </p>
-              ),
-              hyperlink: ({ node, children }) => (
-                <PrismicNextLink 
-                  field={node.data}
-                  className="underline text-primary hover:text-accent"
-                >
-                  {children}
-                </PrismicNextLink>
-              )
-            }}
-          />
-        </div>
-      )}
-
       {/* Project Text */}
       <div style={{ mixBlendMode: 'difference' }}>
         <PrismicRichText
@@ -283,6 +253,30 @@ const ProjectPage: FC<ProjectPageProps> = ({ slice }) => {
             components={{
               paragraph: ({ children }) => (
                 <p className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary leading-normal">
+                  {children}
+                </p>
+              ),
+              hyperlink: ({ node, children }) => (
+                <PrismicNextLink 
+                  field={node.data}
+                  className="underline text-primary hover:text-accent"
+                >
+                  {children}
+                </PrismicNextLink>
+              )
+            }}
+          />
+        </div>
+      )}
+
+      {/* Credits - At the bottom like footer */}
+      {slice.primary.Credits && (
+        <div className="mt-auto py-4" style={{ mixBlendMode: 'difference' }}>
+          <PrismicRichText
+            field={slice.primary.Credits}
+            components={{
+              paragraph: ({ children }) => (
+                <p className="text-sm text-primary">
                   {children}
                 </p>
               ),
