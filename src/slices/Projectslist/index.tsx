@@ -65,17 +65,17 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
               </PrismicNextLink>
             ),
             list: ({ children }) => (
-              <ul className="list-none list-inside space-y-16 text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary break-words overflow-wrap-anywhere relative z-10">
+              <ul className="list-none list-inside space-y-6 sm:space-y-10 md:space-y-14 lg:space-y-20 text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary break-words overflow-wrap-anywhere relative z-10">
                 {children}
               </ul>
             ),
             oList: ({ children }) => (
-              <ol className="list-none list-inside mb-4 space-y-16 text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary break-words overflow-wrap-anywhere relative z-10">
+              <ol className="list-none list-inside mb-4 space-y-6 sm:space-y-10 md:space-y-14 lg:space-y-20 text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary break-words overflow-wrap-anywhere relative z-10">
                 {children}
               </ol>
             ),
             listItem: ({ children }) => (
-              <li className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary py-8 break-words overflow-wrap-anywhere whitespace-normal relative z-10">
+              <li className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary py-3 sm:py-5 md:py-7 lg:py-10 break-words overflow-wrap-anywhere whitespace-normal relative z-10">
                 {children}
               </li>
             ),

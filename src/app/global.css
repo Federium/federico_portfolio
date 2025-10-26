@@ -69,9 +69,11 @@ h1 > *, a > * {
   left: 0 !important;
 }
 
-/* Project preview image - CSS only hover effect */
-.group:has(.project-link:hover) .preview-image {
-  opacity: 1 !important;
+/* Project preview image - CSS only hover effect - solo su dispositivi con mouse */
+@media (hover: hover) and (pointer: fine) {
+  .group:has(.project-link:hover) .preview-image {
+    opacity: 1 !important;
+  }
 }
 
 /* Grid view animations */
