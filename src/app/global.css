@@ -91,12 +91,3 @@ h1 > *, a > * {
 .grid-item-enter {
   animation: fadeInScale 0.5s ease-out forwards;
 }
-
-/* Typewriter animation - nasconde il container fino a quando JS non è pronto */
-.typewriter-container {
-  visibility: hidden !important;
-}
-
-.typewriter-container.typewriter-ready {
-  visibility: visible !important;
-}

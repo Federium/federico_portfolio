@@ -71,7 +71,7 @@ export const RotatingHeader = ({ children }: RotatingHeaderProps) => {
           duration: 0.1,
           ease: 'power1.in',
         });
-      }, 10000); 
+      }, 5000); 
     };
 
     // Avvia il timer iniziale

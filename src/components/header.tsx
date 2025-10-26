@@ -5,25 +5,6 @@ import { createClient } from "@/prismicio";
 import { HeaderSlice } from "../../prismicio-types";
 import { EmojiText } from "./EmojiText";
 import { RotatingHeader } from "./RotatingHeader";
-import { TypewriterName } from "./TypewriterName";
-
-// Funzione helper per estrarre testo da ReactNode
-const extractTextFromChildren = (children: React.ReactNode): string => {
-  if (typeof children === 'string') return children;
-  if (Array.isArray(children)) {
-    return children.map(child => {
-      if (typeof child === 'string') return child;
-      if (child && typeof child === 'object' && 'props' in child) {
-        return extractTextFromChildren((child as any).props.children);
-      }
-      return '';
-    }).join('');
-  }
-  if (children && typeof children === 'object' && 'props' in children) {
-    return extractTextFromChildren((children as any).props.children);
-  }
-  return '';
-};
 
 const Header: FC = async () => {
   const client = createClient();
@@ -44,18 +25,13 @@ const Header: FC = async () => {
           <PrismicRichText
             field={headerSlice.primary.RichText}
             components={{
-              heading1: ({ children }) => {
-                const text = extractTextFromChildren(children);
-                const hasFedericoMorsia = /Federico Morsia/.test(text);
-
-                return (
-                  <EmojiText
-                    className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono"
-                  >
-                    {hasFedericoMorsia ? <TypewriterName>{children}</TypewriterName> : children}
-                  </EmojiText>
-                );
-              },
+              heading1: ({ children }) => (
+                <EmojiText
+                  className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono"
+                >
+                  {children}
+                </EmojiText>
+              ),
               hyperlink: ({ node, children }) => (
                 <PrismicNextLink 
                   field={node.data}
