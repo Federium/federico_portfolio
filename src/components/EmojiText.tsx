@@ -27,6 +27,12 @@ export const EmojiText = ({ children, className, style }: EmojiTextProps) => {
     }
 
     textNodes.forEach((textNode) => {
+      // Salta i nodi che sono gestiti dal TypewriterName
+      const parent = textNode.parentNode as HTMLElement;
+      if (parent && parent.hasAttribute && parent.hasAttribute('data-typewriter')) {
+        return;
+      }
+      
       const text = textNode.textContent || '';
       // Regex più completa per emoji
       const emojiRegex = /(\p{Emoji_Presentation}|\p{Extended_Pictographic}|[\u{1F300}-\u{1F9FF}])/gu;
